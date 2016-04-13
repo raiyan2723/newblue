@@ -129,8 +129,9 @@ class Index_controller extends CI_Controller
 			//echo "<pre>"; print_r($data['news_data']);die;
 			$data['footer_about']  = $this->Cms_model->get_Footer_About();
 			$data['about']         = $this->Cms_model->get_About();
-                        $this->load->model('User_model');
+                        $this->load->model('user_model');
                         $id=$this->session->userdata('u_id');
+                       $id=55;
                         $data['user_data']=$this->user_model->user_data($id);
                         
 			$this->load->view('include/head_view', $data);

@@ -74,45 +74,38 @@
             <div class="row">
                 <div class="col-lg-12 col-sm-12 col-xs-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading col-sm-12" style="    padding-bottom: 0px;">
-                            <div class="form-group col-xs-2">
-                                <label>Villa</label>
-                            </div>
-                            <div class="form-group col-xs-3">
-                                <label>Guest</label>
-                            </div>
-                            <div class="form-group col-xs-2">
-                                <label>Price/Night</label>
-                            </div>
-                            <div class="form-group col-xs-2">
-                                <label>Nights</label>
-                            </div>
-                            <div class="form-group col-xs-2">
-                                <label>Total Price</label>
-                            </div>
-                        </div>
-                        <div class="panel-body" style="    padding-bottom: 0px;padding-top: 66px;">
+                        
+                        <div class="panel-body" style="">
                             <table class="table">
-                            <></>
-                                </table>
-                            <div class="form-group col-xs-2">
-                                <label>Villa</label>
-                            </div>
-                            <div class="form-group col-xs-3">
-                                <label>Guest</label>
-                            </div>
-                            <div class="form-group col-xs-2">
-                                <label>Price/Night</label>
-                            </div>
-                            <div class="form-group col-xs-2">
-                                <label>Nights</label>
-                            </div>
-                            <div class="form-group col-xs-2">
-                                <label>Total Price</label>
-                            </div>
+                                <thead>
+                                    <tr>
+                                        <th>Villa</th>
+                                        <th>Guest</th>
+                                        <th>Price/Night</th>
+                                        <th>Nights</th>
+                                        <th>Total Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Villa</td>
+                                        <td>Guest</td>
+                                        <td>Price/Night</td>
+                                        <td>Nights</td>
+                                        <td>Total Price</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
                         </div>
                     </div>
                 </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-11 col-md-11 form-group text-right wll">
+                  <label class=""><strong style="font-size: large;">Tax(15.3%): <i class="fa fa-inr"></i> 6119.847</strong></label>
+               </div>
             </div>
 
             <h1>Continue Booking &nbsp;<a href="index.php/Index_controller/leisures" class="s-title">Click</a></h1>
