@@ -74,7 +74,7 @@
             <div class="row">
                 <div class="col-lg-12 col-sm-12 col-xs-12">
                     <div class="panel panel-default">
-                        
+
                         <div class="panel-body" style="">
                             <table class="table">
                                 <thead>
@@ -96,18 +96,34 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-xs-11 col-md-11 form-group text-right wll">
-                  <label class=""><strong style="font-size: large;">Tax(15.3%): <i class="fa fa-inr"></i> 6119.847</strong></label>
-               </div>
+                    <label class=""><strong style="font-size: large;">Tax(15.3%): <i class="fa fa-inr"></i> 6119.847</strong></label>
+                </div>
+                <div class="col-xs-11 col-md-11 form-group text-right wll">
+                    <label class=""><strong style="font-size: large;">Grand Total: <i class="fa fa-inr"></i> 46118.847</strong></label>
+                </div>
             </div>
-
+            
+            <div class="col-xs-12 col-md-12 form-group panel panel-default">
+            <div class="panel-body">
+                <div class="col-xs-6 col-md-6">
+                    <input type="checkbox" required="" autofocus="">
+                    <label class="control-label">
+                        <p>I accept <a href="http://noravillas.com/index.php/nora/call_view/terms_view" target="blank">terms And conditions</a></p>
+                    </label>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                    <button class="btn btn-primary pull-right" type="submit">Book</button>
+                </div>
+            </div>
+            </div>
             <h1>Continue Booking &nbsp;<a href="index.php/Index_controller/leisures" class="s-title">Click</a></h1>
 
         </div>
