@@ -13,9 +13,6 @@
   }
 
 </style>
-<style>
-.error {color: #FF0000;}
-</style>
    <div id="page-wrapper">
    <header id="header" class="navbar-static-top">
       <div class="topnav hidden-xs">
@@ -133,7 +130,7 @@
             </center>
          </div>
 		 
-         <form id="register-form" action ="<?php echo base_url();?>index.php/Login/save_signup" method="POST" enctype="multipart/form-data">
+         <form action ="<?php echo base_url();?>index.php/Login/save_signup" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                <input type="text" class="input-text full-width" placeholder="first name" name="f_name" required>
             </div>
@@ -147,7 +144,7 @@
                <input type="password" class="input-text full-width" placeholder="password" name="pass" required>
             </div>
             <div class="form-group">
-               <input type="password" class="input-text full-width" name="rpass" placeholder="confirm password" required>
+               <input type="password" class="input-text full-width" placeholder="confirm password" required>
             </div>
             <div class="form-group">
                <div class="checkbox">
@@ -188,42 +185,4 @@
          <div class="seperator"></div>
          <p>Don't have an account? <a href="#travelo-signup" class="goto-signup soap-popupbox">Sign up</a></p>
       </div>
-       
-       
    </header>
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-	  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-<script>
-  
-  // When the browser is ready...
-  $(function() {
-  
-    // Setup form validation on the #register-form element
-    $("#register-form").validate({
-    
-        // Specify the validation rules
-        rules: {
-            f_name: "required",
-            l_name: "required",
-            
-			agree: "required"
-        },
-		
-        
-        // Specify the validation error messages
-        messages: {
-            firstname: "Please enter your first name",
-            lastname: "Please enter your last name",
-           
-            email: "Please enter a valid email address",
-        },
-        
-        submitHandler: function(form) {
-            form.submit();
-        }
-    });
-
-  });
-  
-  </script>

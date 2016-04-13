@@ -2,67 +2,6 @@
 // echo ($menu['phone']=="")?"blank":$menu['phone'];
 //echo "<pre>"; print_r($menu);die;
 ?>
-<?php
- $a=$menu["phone"];
-$c= "EDIT PROFILE" ;
-if($menu["phone"]!=null)
-{
-	$Phone=$a;
-}
-else
-{
-	$Phone= $c;
-} 
-?>
-<?php
- $a=$menu["DOB"];
-$c= "EDIT PROFILE" ;
-if($menu["DOB"]!=null)
-{
-	$DOB=$a;
-}
-else
-{
-	$DOB= $c;
-} 
-?>
-<?php
- $a=$menu["Address"];
-$c= "EDIT PROFILE" ;
-if($menu["Address"]!=null)
-{
-	$Address=$a;
-}
-else
-{
-	$Address= $c;
-} 
-?>
-<?php
- $a=$menu["yourself"];
-$c= "EDIT PROFILE" ;
-if($menu["yourself"]!=null)
-{
-	$yourself=$a;
-}
-else
-{
-	$yourself= $c;
-} 
-?>
-<?php
- $a=$menu["image"];
-$c= "http://placehold.it/270x263";
-if($menu["image"]!=null)
-{
-	$image=$a;
-}
-else
-{
-	$image= $c;
-} 
-?>
-
 <body class="dashboard style1">
     <div id="page-wrapper">
         <header id="header" class="navbar-static-top">
@@ -351,7 +290,7 @@ else
                             <div class="view-profile">
                                 <article class="image-box style2 box innerstyle personal-details">
                                     <figure>
-                                        <a title="" href="#"><img width="270" height="263" alt="" src="<?php echo $image; ?>"></a>
+                                        <a title="" href="#"><img width="270" height="263" alt="" src="<?php echo (empty($menu['image'])) ? '' : $menu['image']; ?>"></a>
                                     </figure>
                                     <div class="details">
                                         <a href="#" class="button btn-mini pull-right edit-profile-btn">EDIT PROFILE</a>
@@ -359,9 +298,9 @@ else
                                         <dl class="term-description">
                                             <dt>first name:</dt><dd><?php echo ucfirst($menu["first_name"]);?></dd>
                                             <dt>last name:</dt><dd><?php echo ucfirst($menu["last_name"]);?></dd>
-                                            <dt>phone number:</dt><dd><?php echo $Phone ; ?></dd>
-                                            <dt>Date of birth:</dt><dd><?php echo $DOB ; ?></dd>
-                                            <dt> Address</dt><dd><?php echo $Address ; ?></dd>
+                                            <dt>phone number:</dt><dd><?php echo (empty($menu['phone'])) ? '' : $menu['phone']; ?></dd>
+                                            <dt>Date of birth:</dt><dd><?php echo (empty($menu['DOB'])) ? '' : $menu['DOB']; ?></dd>
+                                            <dt> Address</dt><dd><?php echo (empty($menu['Address'])) ? '' : $menu['Address']; ?></dd>
                                            
                                         </dl>
                                     </div>
@@ -374,7 +313,7 @@ else
                                 <hr>
                                 <h2>About You</h2>
                                     <div class="intro">
-                                    <p>Vestibulum tristique, justo eu sollicitudin sagittis, metus dolor eleifend urna, quis scelerisque purus quam nec ligula. Suspendisse iaculis odio odio, ac vehicula nisi faucibus eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse posuere semper sem ac aliquet. Duis vel bibendum tellus, eu hendrerit sapien. Proin fringilla, enim vel lobortis viverra, augue orci fringilla diam, sed cursus elit mi vel lacus. Nulla facilisi. Fusce sagittis, magna non vehicula gravida, ante arcu pulvinar arcu, aliquet luctus arcu purus sit amet sem. Mauris blandit odio sed nisi porttitor egestas. Mauris in quam interdum purus vehicula rutrum quis in sem. Integer interdum lectus at nulla dictum luctus. Sed risus felis, posuere id condimentum non, egestas pulvinar enim. Praesent pretium risus eget nisi ullamcorper fermentum. Duis lacinia nisi ac rhoncus vestibulum.</p>
+                                    <p><?php echo (empty($menu['yourself'])) ? '' : $menu['yourself']; ?></p>
                                 </div>
                                 
                                 <hr>
@@ -445,14 +384,14 @@ else
                                             </div>
                                             <div class="col-sms-6 col-sm-6">
                                                 <label>Phone Number</label>
-                                               <input type="text" class="input-text full-width" placeholder="" name="p_no" value="<?php echo $Phone;?>">
+                                               <input type="text" class="input-text full-width" placeholder="" name="p_no" value="<?php echo (empty($menu['phone'])) ? '' : $menu['phone']; ?>">
                                             </div>
 											</div>
                                        
                                         <div class="row form-group">
                                             <div class="col-sms-6 col-sm-6">
                                                 <label>Date of Birth</label>
-                                               <input type="date" class="input-text full-width" placeholder="" name="dob" value="<?php echo $DOB;?>">
+                                               <input type="date" class="input-text full-width" placeholder="" name="dob" value="<?php echo (empty($menu['DOB'])) ? '' : $menu['DOB']; ?>">
                                             </div>
 										 </div>
                                         <hr>
@@ -461,19 +400,19 @@ else
                                             <div class="col-sms-12 col-sm-6 no-float">
                                                 <div class="fileinput full-width">
                                                     <input type="file" class="input-text" data-placeholder="select image/s" name="user_image">
-													 <input type="hidden" name="user_image" value="<?php echo $image;?>" >
+													 <input type="hidden" name="user_image" value="<?php echo (empty($menu['image'])) ? '' : $menu['image']; ?>" >
                                                 </div>
                                             </div>
                                         </div>
 										<hr>
                                         <h2>Complete Address</h2>
                                         <div class="form-group">
-                                            <textarea rows="2" class="input-text full-width" placeholder="please tell us about you" name="Address" ><?php echo $Address;?></textarea>
+                                            <textarea rows="2" class="input-text full-width" placeholder="please tell us about you" name="Address" ><?php echo (empty($menu['Address'])) ? '' : $menu['Address']; ?></textarea>
                                         </div>
                                         <hr>
                                         <h2>Describe Yourself</h2>
                                         <div class="form-group">
-                                            <textarea rows="5" class="input-text full-width" placeholder="please tell us about you" name="description"><?php echo $yourself;?></textarea>
+                                            <textarea rows="5" class="input-text full-width" placeholder="please tell us about you" name="description"><?php echo (empty($menu['yourself'])) ? '' : $menu['yourself']; ?></textarea>
                                         </div>
                                         <div class="from-group">
                                             <button type="submit" class="btn-medium col-sms-6 col-sm-4">UPDATE SETTINGS</button>

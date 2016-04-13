@@ -50,7 +50,6 @@ class Login extends CI_Controller
         if ($res) {
             $this->user_type();
         } else {
-            
             redirect("Index_controller/index", 'refresh');
         }
     }
@@ -66,11 +65,13 @@ class Login extends CI_Controller
     function save_signup()
     {
         $count  = $this->Login_model->count_email($_POST['email']);
+		
  
         if ($count['count'] > 0) {
           echo  $data['msg'] = "This Email_Id already registered, please signup with differant Email.";
+		//  print_r($count);die;
           redirect("Index_controller/index", 'refresh');
-            die;
+        
         }
         $user_type = "user";
         $otp       = rand(100000, 999999);
@@ -88,13 +89,13 @@ class Login extends CI_Controller
             'from' => 'develpers@softbunch.com',
             'to' => $data['email'],
             'subject' => 'OTP from Bluesky',
-            'message' => $msg2
+           // 'message' => $msg2
         );
        // $this->load->view('include/head_view', $data);
         $d            = $this->Login_model->save_signup();
         $data['data'] = $d;
         $data['msg']  = "You Are Successfully Registered To Bluesky";
-        redirect('Login/User_account', 'refresh');
+      redirect('User_login/User_account', 'refresh');
     }
     function mobile_verification()
     {
@@ -142,12 +143,7 @@ class Login extends CI_Controller
             $this->load->view('user/login_view', $data);
         }
     }
-	public function User_account()
-	{
-		$this->load->view('include/head_view');
-		$this->load->view('dashboard/dashboard_view');
-		$this->load->view('dashboard/s_dashboard_view');
-	}
+	
 }
 ?>
 

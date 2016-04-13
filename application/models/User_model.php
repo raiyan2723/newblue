@@ -26,12 +26,14 @@ class User_model extends CI_Model
         $this->db->update('login', $data);
 		
     }
-    public function user_data($id) {
+	public function user_data($id)
+    {
        $sql="Select * from login where u_id=$id"; 
        $query=  $this->db->query($sql);
       return $query->row_array();
        
     }
+
 }
 
 

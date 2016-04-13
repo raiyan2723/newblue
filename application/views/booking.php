@@ -137,60 +137,147 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                             <div class="person-information">
                                 <h2>Guest  Information</h2>
                                 <div class="form-group row">
-                                    <div class="form-group">
-                                        <h4>Adult 1</h4>
-                                    </div>
-                                    <div class="col-sm-6 col-md-5">
+                                    
+                                    <div class="col-sm-1 col-md-1">
 
                                         <div class="form-group">
-                                            <label>first name</label>
-                                            <input type="text" name="firstname" class="input-text full-width"  id="firstname">
+                                            <h4>1.</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+
+                                        <div class="form-group">
+                                            <select name="prefix[]" class="input-text full-width">
+                                                <option value="Mr">Mr</option>
+                                                <option value="Mrs">Mrs</option>
+                                                <option value="Ms">Ms</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+
+                                        <div class="form-group">
+                                            <input type="text" name="firstname1[]" class="input-text full-width" placeholder="First Name"  id="firstname">
+                                            <input type="hidden" name="catagory[]" class="input-text full-width" value="Adult" placeholder="" />
+                                            <input type="hidden" name="age[]" class="input-text full-width" value="0" placeholder="" />
                                             <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
                                             <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
                                             <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-5">
-                                        <label>last name</label>
-                                        <input type="text" name="lastname" class="input-text full-width" id="lastname">
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="text" name="lastname1[]" class="input-text full-width" placeholder="Last Name" id="lastname">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="form-group">
-                                        <h4>Adult 2</h4>
-                                    </div>
-                                    <div class="col-sm-6 col-md-5">
+                                    
+                                    <div class="col-sm-1 col-md-1">
 
                                         <div class="form-group">
-                                            <label>first name</label>
-                                            <input type="text" name="firstname2" class="input-text full-width"  id="firstname">
+                                            <h4>2.</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+
+                                        <div class="form-group">
+                                            <select name="prefix[]" class="input-text full-width">
+                                                <option value="Mr">Mr</option>
+                                                <option  value="Mrs" selected="selected">Mrs</option>
+                                                <option value="Ms">Ms</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+
+                                        <div class="form-group">
+                                            <input type="text" name="firstname1[]" class="input-text full-width" placeholder="First Name"  id="firstname">
                                             <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
+                                            <input type="hidden" name="catagory[]" class="input-text full-width" value="Adult" placeholder="" />
+                                            <input type="hidden" name="age[]" class="input-text full-width" value="0" placeholder="" />
                                             <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
                                             <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-5">
-                                        <label>last name</label>
-                                        <input type="text" name="lastname2" class="input-text full-width" id="lastname">
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="text" name="lastname1[]" placeholder="Last Name" class="input-text full-width" id="lastname">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="form-group">
-                                        <h4>Child 1</h4>
-                                    </div>
-                                    <div class="col-sm-6 col-md-5">
+                                    
+                                    <div class="col-sm-1 col-md-1">
 
                                         <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" name="firstname2" class="input-text full-width"  id="firstname">
+                                            <h4>3.</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+
+                                        <div class="form-group">
+                                            <input type="text" readonly="readonly" name="catagory[]" class="input-text full-width" value="Child"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+
+                                        <div class="form-group">
+                                            <input type="text" placeholder="Name" name="firstname1[]" class="input-text full-width"  id="firstname">
                                             <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
                                             <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
                                             <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 col-md-5">
-                                        <label>Age</label>
-                                        <input type="text" name="lastname2" class="input-text full-width" id="lastname">
+                                    <div class="col-sm-3 col-md-3">
+                                        <select name="age[]" class="input-text full-width">
+                                                <option >Age</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                        <input type="hidden" name="lastname1[]" class="input-text full-width" value="blank" placeholder="" />
+                                        <input type="hidden" name="prefix[]" class="input-text full-width" value="" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    
+                                    <div class="col-sm-1 col-md-1">
+
+                                        <div class="form-group">
+                                            <h4>4.</h4>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+
+                                        <div class="form-group">
+                                            <input type="text" readonly="readonly" name="catagory[]" class="input-text full-width" value="Child"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+
+                                        <div class="form-group">
+                                            <input type="text" placeholder="firstname" name="firstname1[]" class="input-text full-width"  id="firstname">
+                                            <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
+                                            <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
+                                            <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <select name="age[]" class="input-text full-width">
+                                                <option >Age</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                         <input type="hidden" name="lastname1[]" class="input-text full-width" value="blank" placeholder="" />
+                                         <input type="hidden" name="prefix[]" class="input-text full-width" value="" placeholder="" />
                                     </div>
                                 </div>
                             </div>

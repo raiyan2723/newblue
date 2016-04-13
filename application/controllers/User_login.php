@@ -16,7 +16,7 @@ class User_login extends CI_Controller {
 	{
 		$this->session->all_userdata();
 		$data['menu'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
-		//echo "<pre>";print_r($data);die;
+		//echo "<pre>";print_r($data['menu']);die;
 		//$data['username']=$this->session->userdata('fisrt_name');
 		$this->load->view('include/head_view',$data);
 		$this->load->view('dashboard/dashboard_view');
