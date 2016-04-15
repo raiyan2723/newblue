@@ -6,7 +6,7 @@ $Total_cost = $booking['Package_Cast'] + $booking['Other_Charge'] + $booking['On
 <style>
     .error {color: #FF0000;}
 </style>
-<?php //echo "<pre>";print_r($user);die; ?>
+<?php //echo "<pre>";print_r($user);die;?>
 <?php // echo "<pre>"; print_r($posted['first_name']);die;?>
 <?php
 // Merchant key here as provided by Payu
@@ -93,12 +93,12 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                             <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
                             <input type="hidden" name="txnid" value="<?php echo $txnid ?>" />
                             <input type="hidden" name="service_provider" value="payu_paisa" size="64" />
-                            <div class="person-information">
+                       <div class="person-information">
                                 <h2>Your Personal Information</h2>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
                                         <label>first name</label>
-                                        <input readonly="readonly" type="text" name="firstname" class="input-text full-width"  id="firstname" value="<?php echo (empty($user['first_name'])) ? $guest['fname'] : $user['first_name']; ?>" >
+                                        <input type="text" name="firstname" class="input-text full-width"  id="firstname" value="<?php echo (empty($user['first_name'])) ? '' : $user['first_name']; ?>" >
                                         <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
                                         <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
                                         <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
@@ -106,88 +106,77 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                     </div>
                                     <div class="col-sm-6 col-md-5">
                                         <label>last name</label>
-                                        <input readonly="readonly" type="text" name="lastname" class="input-text full-width" id="lastname"  value="<?php echo (empty($user['last_name'])) ? $guest['lname'] : $user['last_name']; ?>">
+                                        <input type="text" name="lastname" class="input-text full-width" id="lastname"  value="<?php echo (empty($user['last_name'])) ? '' : $user['last_name']; ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
                                         <label>email address</label>
-                                        <input readonly="readonly" type="text" name="email" class="input-text full-width" id="email"  value="<?php echo (empty($user['email'])) ? $guest['email'] : $user['email']; ?>" placeholder="" />
+                                        <input type="text" name="email" class="input-text full-width" id="email"  value="<?php echo (empty($user['email'])) ? '' : $user['email']; ?>" placeholder="" />
                                     </div>
                                     <div class="col-sm-6 col-md-5">
-                                        <label>Phone number</label>
-                                        <input readonly="readonly" type="text" maxlength="10" size="10" name="phone" class="input-text full-width" id="phone" value="<?php echo (empty($user['phone'])) ? $guest['phone'] : $user['phone']; ?>" placeholder="" />
+                                        <label>Confirm E-mail Address</label>
+                                        <input type="text" class="input-text full-width" name="emailConfirm"  id="emailConfirm" value="" placeholder="" / >
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
                                         <label>Address</label>
                                         <div class="#">
-                                            <input readonly="readonly" type="text" class="input-text full-width" id="address" name="address" value="<?php
-                                            if ($this->session->userdata('u_id')) {
-                                                echo (empty($user['Address'])) ? '' : $user['Address'];
-                                            } else {
-                                                echo (empty($guest['address'])) ? '' : $guest['address'];
-                                            }
-                                            ?>" placeholder="" />
+                                            <input type="text" class="input-text full-width" id="address" name="address" value="<?php echo (empty($user['Address'])) ? '' : $user['Address']; ?>" placeholder="" />
                                         </div>
                                     </div>
-
+                                    <div class="col-sm-6 col-md-5">
+                                        <label>Phone number</label>
+                                        <input type="text" maxlength="10" size="10" name="phone" class="input-text full-width" id="phone" value="<?php echo (empty($user['phone'])) ? '' : $user['phone']; ?>" placeholder="" />
+                                    </div>
                                 </div>
 
                             </div>
                             <hr/>
                             <div class="person-information">
                                 <h2>Guest  Information</h2>
-
-
+                                
+                                
                                 <div class="form-group row" id="newguest">
-                                    <div class="form-group row ">
+                                <div class="form-group row ">
 
-                                        <div class="col-sm-1 col-md-1">
+                                    <div class="col-sm-1 col-md-1">
 
-                                            <div class="form-group">
-                                                <h4></h4>
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-1 col-md-1">
-
-                                            <div style="width: 53px;" class="form-group">
-                                                <select style="    margin-left: -14px;" name="prefix[]" class="input-text full-width">
-                                                    <option value="Mr">Mr</option>
-                                                    <option value="Mrs">Mrs</option>
-                                                    <option value="Ms">Ms</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-2">
-
-                                            <div class="form-group">
-                                                <input type="text" name="firstname1[]" class="input-text full-width" placeholder="First Name"  id="firstname">
-                                                <input type="hidden" name="catagory[]" class="input-text full-width" value="Adult" placeholder="" />
-                                                <input type="hidden" name="age[]" class="input-text full-width" value="0" placeholder="" />
-                                                <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
-                                                <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
-                                                <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-2 col-md-2">
-                                            <div class="form-group">
-                                                <input type="text" name="lastname1[]" class="input-text full-width" placeholder="Last Name" id="lastname">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3 col-md-3">
-                                            <div class="form-group">
-                                                <input type="date" name="dob[]" class="input-text full-width" placeholder="DOB" id="">
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-1 col-md-1">
-                                            <a style="color:grey" class="fa fa-plus-circle fa-2x pull-right bt"></a>
+                                        <div class="form-group">
+                                            <h4>1.</h4>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2 col-md-2">
 
+                                        <div class="form-group">
+                                            <select name="prefix[]" class="input-text full-width">
+                                                <option value="Mr">Mr</option>
+                                                <option value="Mrs">Mrs</option>
+                                                <option value="Ms">Ms</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+
+                                        <div class="form-group">
+                                            <input type="text" name="firstname1[]" class="input-text full-width" placeholder="First Name"  id="firstname">
+                                            <input type="hidden" name="catagory[]" class="input-text full-width" value="Adult" placeholder="" />
+                                            <input type="hidden" name="age[]" class="input-text full-width" value="0" placeholder="" />
+                                            <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
+                                            <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
+                                            <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="text" name="lastname1[]" class="input-text full-width" placeholder="Last Name" id="lastname">
+                                    </div>
+                                    <div class="col-sm-2 col-md-2">
+                                        <a class="btn btn-success pull-right bt">Add More</a>
+                                    </div>
                                 </div>
+
+                            </div>
                             </div>
                             <hr />
 
@@ -212,7 +201,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                         <h4> Booking Details</h4>
                         <article class="image-box hotel listing-style1">
                             <figure class="clearfix">
-                                <a href="#" class="hover-effect middle-block"><img class="middle-item" width="270" height="160" alt="" src="<?= $booking["Packages_image"]; ?>"></a>
+                                <a href="index.php/Index_controller/i_package/<?php echo $booking["Location_name"];?>" class="hover-effect middle-block"><img class="middle-item" width="270" height="160" alt="" src="<?= $booking["Packages_image"]; ?>"></a>
                                 <div class="travel-title">
                                     <h5 class="box-title"><?php echo $booking['Location_name']; ?><small>Packages</small></h5>
                                     <!--<a href="#" class="button">EDIT</a>-->
@@ -317,46 +306,91 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.9.1.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-    <!--    <script type="text/javascript" src="assest/js/validation.js"></script>-->
+    <script type="text/javascript" src="assest/js/validation.js"></script>
 
     <script>
-        //        $(document).ready(function(){
-        //                  //if (iCnt != 0) { $('.new' + iCnt).remove(); iCnt = iCnt - 1;iCntt = iCntt - 1 }
-        //            })
-        //        })   var iCnt = 0;
-        //            var nw = 0;
-        //            var iCntt = 1;
-        //            $(".bt").click(function(){
-        //                iCnt = iCnt + 1;
-        //                nw = nw + 1;
-        //                iCntt = iCntt + 1;
-        //                $("#newguest").append("<div class='form-group row new"+iCnt+"'><a id='btt"+nw+"' onclick='del(this.id)' class='btn btn-success  btt'>delete</a><div class='col-sm-1 col-md-1'><div class='form-group'><h4>"+iCntt+".</h4></div></div><div class='col-sm-2 col-md-2'><div class='form-group'><select name='prefix[]' class='input-text full-width'><option value='Mr'>Mr</option><option value='Mrs'>Mrs</option><option value='Ms'>Ms</option></select></div></div><div class='col-sm-4 col-md-4'><div class='form-group'><input type='text' name='firstname1[]' class='input-text full-width' placeholder='First Name' id='firstname'><input type='hidden' name='catagory[]' class='input-text full-width' value='Adult' placeholder='' /><input type='hidden' name='age[]' class='input-text full-width' value='0' placeholder='' /></div></div><div class='col-sm-3 col-md-3'><input type='text' name='lastname1[]' class='input-text full-width' placeholder='Last Name' id='lastname'></div></div>");
-        //            });
-        //            
-        //        })
-        var nw = 0;
-        var iCntt = 1;
-        $(".bt").click(function () {
-            // console.log("test");
-            iCntt = iCntt + 1;
-            $("#newguest").append("<div id='new' class='form-group row'><a id='btt" + nw + "' onclick='del(this.id)' style='color:red' class='fa fa-minus-circle fa-2x  btt'></a><div class='col-sm-1 col-md-1'><div class='form-group'><h4></h4></div></div><div class='col-sm-1 col-md-1'><div style='    width: 53px;' class='form-group'><select style='margin-left: -14px;' name='prefix[]' class='input-text full-width'><option value='Mr'>Mr</option><option value='Mrs'>Mrs</option><option value='Ms'>Ms</option></select></div></div><div class='col-sm-2 col-md-2    '><div class='form-group'><input type='text' name='firstname1[]' class='input-text full-width' placeholder='First Name' id='firstname'><input type='hidden' name='catagory[]' class='input-text full-width' value='Adult' placeholder='' /><input type='hidden' name='age[]' class='input-text full-width' value='0' placeholder='' /></div></div><div class='col-sm-2 col-md-2'><input type='text' name='lastname1[]' class='input-text full-width' placeholder='Last Name' id='lastname'></div><div class='col-sm-3 col-md-3'><div class='form-group'><input type='date' name='dob[]' class='input-text full-width' placeholder='DOB' id=''></div></div></div>");
-            nw++;
-        });
-        $("#btt1").click(function () {
-            console.log("test");
-        });
-
+//        $(document).ready(function(){
+//                  //if (iCnt != 0) { $('.new' + iCnt).remove(); iCnt = iCnt - 1;iCntt = iCntt - 1 }
+//            })
+//        })   var iCnt = 0;
+//            var nw = 0;
+//            var iCntt = 1;
+//            $(".bt").click(function(){
+//                iCnt = iCnt + 1;
+//                nw = nw + 1;
+//                iCntt = iCntt + 1;
+//                $("#newguest").append("<div class='form-group row new"+iCnt+"'><a id='btt"+nw+"' onclick='del(this.id)' class='btn btn-success  btt'>delete</a><div class='col-sm-1 col-md-1'><div class='form-group'><h4>"+iCntt+".</h4></div></div><div class='col-sm-2 col-md-2'><div class='form-group'><select name='prefix[]' class='input-text full-width'><option value='Mr'>Mr</option><option value='Mrs'>Mrs</option><option value='Ms'>Ms</option></select></div></div><div class='col-sm-4 col-md-4'><div class='form-group'><input type='text' name='firstname1[]' class='input-text full-width' placeholder='First Name' id='firstname'><input type='hidden' name='catagory[]' class='input-text full-width' value='Adult' placeholder='' /><input type='hidden' name='age[]' class='input-text full-width' value='0' placeholder='' /></div></div><div class='col-sm-3 col-md-3'><input type='text' name='lastname1[]' class='input-text full-width' placeholder='Last Name' id='lastname'></div></div>");
+//            });
+//            
+//        })
+ var nw=0;
+ var iCntt = 1;
+$(".bt").click(function(){
+   // console.log("test");
+  iCntt = iCntt + 1;
+   $("#newguest").append("<div id='new' class='form-group row new'><a id='btt"+nw+"' onclick='del(this.id)' class='btn btn-success  btt'>delete</a><div class='col-sm-1 col-md-1'><div class='form-group'><h4>"+iCntt+".</h4></div></div><div class='col-sm-2 col-md-2'><div class='form-group'><select name='prefix[]' class='input-text full-width'><option value='Mr'>Mr</option><option value='Mrs'>Mrs</option><option value='Ms'>Ms</option></select></div></div><div class='col-sm-4 col-md-4'><div class='form-group'><input type='text' name='firstname1[]' class='input-text full-width' placeholder='First Name' id='firstname'><input type='hidden' name='catagory[]' class='input-text full-width' value='Adult' placeholder='' /><input type='hidden' name='age[]' class='input-text full-width' value='0' placeholder='' /></div></div><div class='col-sm-3 col-md-3'><input type='text' name='lastname1[]' class='input-text full-width' placeholder='Last Name' id='lastname'></div></div>");
+   nw++ ;
+});
+$("#btt1").click(function(){
+   console.log("test"); 
+}); 
+  
     </script>
     <script>
         function del(id)
         {
             iCntt = iCntt - 1;
             document.getElementById('new').remove();
-
+             
         }
+        </script>
+
+    <script>
+        // When the browser is ready...
+        $(function () {
+
+            // Setup form validation on the #register-form element
+            $("#register-form").validate({
+                // Specify the validation rules
+                rules: {
+                    firstname: "required",
+                    lastname: "required",
+                    address: "required",
+                    c_email: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    emailConfirm: {
+                        equalTo: "#email"
+                    },
+                    phone: {
+                        required: true,
+                        minlength: 10
+                    },
+                    agree: "required"
+                },
+                // Specify the validation error messages
+                messages: {
+                    firstname: "Please enter your first name",
+                    lastname: "Please enter your last name",
+                    c_email: "Please confirm your email",
+                    address: "Please enter your last name",
+                    phone: {
+                        required: "Please provide a Phone No.",
+                        minlength: "Your Phone No. must be at least 10 characters long"
+                    },
+                    email: "Please enter a valid email address",
+                    emailConfirm: "Email Does Not Match",
+                    agree: "Please accept our policy"
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+
+        });
     </script>
-
-
 </body>
 </html>
 

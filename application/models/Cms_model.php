@@ -408,7 +408,7 @@ class Cms_model extends CI_Model {
             'Price' => $this->input->post('amount'),
             'Packages' => $this->input->post('productinfo')
         );
-       return $this->db->insert('booking', $data);
+        $this->db->insert('booking', $data);
     }
 
     function booking_details() {
@@ -436,9 +436,36 @@ class Cms_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query->row_array();
     }
-    public function add_guest($data)
-    {
-       return $this->db->insert('guest',$data);
+
+    public function add_guest($data) {
+        return $this->db->insert('guest', $data);
+    }
+
+    function insert_gst_details() {
+        $data = array(
+            'fname' => $this->input->post('firstname'),
+            'lname' => $this->input->post('lastname'),
+            'email' => $this->input->post('email'),
+            'address' => $this->input->post('address'),
+            'phone' => $this->input->post('phone')
+        );
+        $this->db->insert('guest_login', $data);
+        $guest_id = $this->db->insert_id();
+        $this->session->set_userdata('guest_id', $guest_id);
+    }
+
+    function guest_detail($id) {
+        $sql = "select * from guest_login 
+			where  id_gstlog=$id";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    function guest_booking_user_detail($id,$user_type) {
+        $sql = "select count(g.id)as countt  from guest g
+                where g.user_id=$id and g.user_type='$user_type' and g.status='Active'";
+        $query = $this->db->query($sql);
+        return $query->row_array();
     }
 
 }

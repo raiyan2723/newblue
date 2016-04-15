@@ -1,4 +1,3 @@
-
 <div class="page-title-container">
     <div class="container">
         <div class="page-title pull-left">
@@ -21,17 +20,36 @@
 
                         <div class="col-sm-12 col-xs-12">
                             <div class="form-group"> 
-                                <label class="label-control">Name:</label>
-                                <span><?php echo $user_data['first_name']; ?></span>
+                                <label class="label-control">Name:</label>&nbsp;&nbsp;&nbsp;
+                                <span><?php
+                                    if (isset($user_data)) {
+                                        echo $user_data['first_name'];
+                                    } else {
+                                        echo $user_data2['fname'];
+                                    }
+                                    ?></span>
                             </div>
                             <div class="form-group"> 
-                                <label class="label-control">Phone:</label>
-                                <span><?php echo $user_data['phone']; ?></span>
+                                <label class="label-control">Phone:</label>&nbsp;&nbsp;&nbsp;
+                                <span><?php
+                                    if (isset($user_data)) {
+                                        echo $user_data['phone'];
+                                    } else {
+                                        echo $user_data2['phone'];
+                                    }
+                                    ?></span>
                             </div>
                             <div class="form-group"> 
-                                <label class="label-control">Email:</label>
-                                <span><?php echo $user_data['email']; ?></span>
+                                <label class="label-control">Email:</label>&nbsp;&nbsp;&nbsp;
+                                <span><?php
+                                    if (isset($user_data)) {
+                                        echo $user_data['email'];
+                                    } else {
+                                        echo $user_data2['email'];
+                                    }
+                                    ?></span>
                             </div>
+
 
                         </div>
                     </div>
@@ -39,34 +57,23 @@
                 <div class="col-lg-2 col-sm-2 col-xs-2"></div>
                 <div class="panel panel-default col-lg-6 col-sm-6 col-xs-6">
                     <div class=" panel-body">
-                        <div class="col-sm-6 col-xs-6">
-                            <img href="#" alt="Image" height="240px" width="200px"/>
+                        <div class="col-sm-8 col-xs-8">
+                            <img src="<?php echo $booking['Packages_image']; ?>" alt="Image" style="height: 151px" width="100%"/>
                         </div>
-                        <div class="col-sm-6 col-xs-6">
+                        <div class="col-sm-3 col-xs-3">
                             <div class="form-group"> 
-                                <label class="label-control">Packages:</label>
+                                <label class="label-control">Packages:</label>&nbsp;&nbsp;&nbsp;
                                 <span><?php echo $productinfo = $this->input->post('productinfo'); ?></span>
                             </div>
                             <div class="form-group"> 
-                                <label class="label-control">Night:</label>
+                                <label class="label-control">Night:</label>&nbsp;&nbsp;&nbsp;
                                 <span><?php echo $night = $this->input->post('night'); ?></span>
                             </div>
                             <div class="form-group"> 
-                                <label class="label-control">Price:</label>
+                                <label class="label-control">Price:</label>&nbsp;&nbsp;&nbsp;
                                 <span><?php echo $amount = $this->input->post('amount'); ?></span>
                             </div>
-                            <div class="form-group"> 
-                                <label class="label-control">Your Name:</label>
-                                <span><?php echo $firstname = $this->input->post('firstname'); ?>&nbsp;&nbsp;<?php echo $lastname = $this->input->post('lastname'); ?></span>
-                            </div>
-                            <div class="form-group"> 
-                                <label class="label-control">Email:</label>
-                                <span><?php echo $email = $this->input->post('email'); ?></span>
-                            </div>
-                            <div class="form-group"> 
-                                <label class="label-control">Phone:</label>
-                                <span><?php echo $phone = $this->input->post('phone'); ?></span>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -79,7 +86,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>Villa</th>
+                                        <th>Packages</th>
                                         <th>Guest</th>
                                         <th>Price/Night</th>
                                         <th>Nights</th>
@@ -88,8 +95,14 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>Villa</td>
-                                        <td>Guest</td>
+                                        <td><?php echo $amount = $this->input->post('productinfo'); ?></td>
+                                        <td><?php
+                                            if (isset($user)) {
+                                                echo $user['countt'];
+                                            } else {
+                                                echo $guest['countt'];
+                                            }
+                                            ?></td>
                                         <td>Price/Night</td>
                                         <td>Nights</td>
                                         <td>Total Price</td>
@@ -103,26 +116,24 @@
             </div>
 
             <div class="row">
+
                 <div class="col-xs-11 col-md-11 form-group text-right wll">
-                    <label class=""><strong style="font-size: large;">Tax(15.3%): <i class="fa fa-inr"></i> 6119.847</strong></label>
-                </div>
-                <div class="col-xs-11 col-md-11 form-group text-right wll">
-                    <label class=""><strong style="font-size: large;">Grand Total: <i class="fa fa-inr"></i> 46118.847</strong></label>
+                    <label class=""><strong style="font-size: large;">Grand Total: <i class="fa fa-inr"></i> <?php echo $amount = $this->input->post('amount'); ?></strong></label>
                 </div>
             </div>
-            
+
             <div class="col-xs-12 col-md-12 form-group panel panel-default">
-            <div class="panel-body">
-                <div class="col-xs-6 col-md-6">
-                    <input type="checkbox" required="" autofocus="">
-                    <label class="control-label">
-                        <p>I accept <a href="http://noravillas.com/index.php/nora/call_view/terms_view" target="blank">terms And conditions</a></p>
-                    </label>
+                <div class="panel-body">
+                    <div class="col-xs-6 col-md-6">
+                        <input type="checkbox" required="" autofocus="">
+                        <label class="control-label">
+                            <p>I accept <a href="http://noravillas.com/index.php/nora/call_view/terms_view" target="blank">terms And conditions</a></p>
+                        </label>
+                    </div>
+                    <div class="col-xs-6 col-md-6">
+                        <button class="btn btn-primary pull-right" type="submit">Book</button>
+                    </div>
                 </div>
-                <div class="col-xs-6 col-md-6">
-                    <button class="btn btn-primary pull-right" type="submit">Book</button>
-                </div>
-            </div>
             </div>
             <h1>Continue Booking &nbsp;<a href="index.php/Index_controller/leisures" class="s-title">Click</a></h1>
 

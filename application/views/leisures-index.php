@@ -23,7 +23,6 @@ error_reporting(0);
 			                 { 
 							 	   if($data["Location_name"] != $menu[$j+1]["Location_name"])   
 												   {								
-						 
 							 ?>			
 							 
             <div class="post-content">
@@ -54,7 +53,7 @@ error_reporting(0);
 															</p>
 															<p>&nbsp;</p>
 															<p>Simple And Easy booking process </br> <?=$employee["Package_Bokking_Process"]; ?></p>
-															<button><a href="index.php/Index_controller/booking/<?php echo $employee["l_id"]; ?>">Book Now</a></button>
+															<button><a href="index.php/Index_controller/is_login_in/<?php echo $employee["l_id"]; ?>">Book Now</a></button>
 														 </div>
 														 <div class="tab-pane fade" id="second-tab<?= $i+1; ?>">
 															<h2 class="tab-content-title">Inclusion</h2>

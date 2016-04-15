@@ -6,7 +6,7 @@ $Total_cost = $booking['Package_Cast'] + $booking['Other_Charge'] + $booking['On
 <style>
     .error {color: #FF0000;}
 </style>
-<?php //echo "<pre>";print_r($user);die; ?>
+<?php //echo "<pre>";print_r($user);die;?>
 <?php // echo "<pre>"; print_r($posted['first_name']);die;?>
 <?php
 // Merchant key here as provided by Payu
@@ -85,7 +85,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                 <div id="main" class="col-sms-6 col-sm-8 col-md-9">
                     <div class="booking-section travelo-box">
 
-                        <form action="index.php/Index_controller/booking_user" method="post" id="register-form" novalidate="novalidate" name="payuForm">
+                        <form action="index.php/Index_controller/gst_details" method="post" id="register-form" novalidate="novalidate" name="payuForm">
                             <input type="hidden" name="curl" value="failure.php" />
                             <input type="hidden" name="surl" value="success.php" size="64" />
                             <input type="hidden" name="furl" value="failure.php" size="64" />
@@ -97,102 +97,43 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                 <h2>Your Personal Information</h2>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
-                                        <label>first name</label>
-                                        <input readonly="readonly" type="text" name="firstname" class="input-text full-width"  id="firstname" value="<?php echo (empty($user['first_name'])) ? $guest['fname'] : $user['first_name']; ?>" >
+										<input type="text" name="firstname" class="input-text full-width"  id="firstname" value="<?php echo (empty($user['first_name'])) ? '' : $user['first_name']; ?>" placeholder="First Name" />
                                         <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
                                         <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
                                         <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
+										<input type="hidden" name="image" class="input-text full-width" value="<?php echo $booking['Packages_image']; ?>" placeholder="" />
 
                                     </div>
                                     <div class="col-sm-6 col-md-5">
-                                        <label>last name</label>
-                                        <input readonly="readonly" type="text" name="lastname" class="input-text full-width" id="lastname"  value="<?php echo (empty($user['last_name'])) ? $guest['lname'] : $user['last_name']; ?>">
+                                   <input type="text" name="lastname" class="input-text full-width" id="lastname"  value="<?php echo (empty($user['last_name'])) ? '' : $user['last_name']; ?>"placeholder="Last name" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
-                                        <label>email address</label>
-                                        <input readonly="readonly" type="text" name="email" class="input-text full-width" id="email"  value="<?php echo (empty($user['email'])) ? $guest['email'] : $user['email']; ?>" placeholder="" />
+                                        
+                                        <input type="email" name="email" class="input-text full-width" id="email"  value="<?php echo (empty($user['email'])) ? '' : $user['email']; ?>" placeholder="Email Address" />
                                     </div>
                                     <div class="col-sm-6 col-md-5">
-                                        <label>Phone number</label>
-                                        <input readonly="readonly" type="text" maxlength="10" size="10" name="phone" class="input-text full-width" id="phone" value="<?php echo (empty($user['phone'])) ? $guest['phone'] : $user['phone']; ?>" placeholder="" />
+                                        
+                                        <input type="text" class="input-text full-width" name="emailConfirm"  id="emailConfirm" value="" placeholder="Confirm E-mail Address" / >
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
-                                        <label>Address</label>
+                                       
                                         <div class="#">
-                                            <input readonly="readonly" type="text" class="input-text full-width" id="address" name="address" value="<?php
-                                            if ($this->session->userdata('u_id')) {
-                                                echo (empty($user['Address'])) ? '' : $user['Address'];
-                                            } else {
-                                                echo (empty($guest['address'])) ? '' : $guest['address'];
-                                            }
-                                            ?>" placeholder="" />
+                                            <input type="text" class="input-text full-width" id="address" name="address" value="<?php echo (empty($user['Address'])) ? '' : $user['Address']; ?>" placeholder="Address" />
                                         </div>
                                     </div>
-
+                                    <div class="col-sm-6 col-md-5">
+                                       
+                                        <input type="text" name="phone" class="input-text full-width" id="phone" value="<?php echo (empty($user['phone'])) ? '' : $user['phone']; ?>" placeholder="Phone number" maxlength="10" size="10">
+                                    </div>
                                 </div>
 
                             </div>
                             <hr/>
-                            <div class="person-information">
-                                <h2>Guest  Information</h2>
-
-
-                                <div class="form-group row" id="newguest">
-                                    <div class="form-group row ">
-
-                                        <div class="col-sm-1 col-md-1">
-
-                                            <div class="form-group">
-                                                <h4></h4>
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-1 col-md-1">
-
-                                            <div style="width: 53px;" class="form-group">
-                                                <select style="    margin-left: -14px;" name="prefix[]" class="input-text full-width">
-                                                    <option value="Mr">Mr</option>
-                                                    <option value="Mrs">Mrs</option>
-                                                    <option value="Ms">Ms</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2 col-md-2">
-
-                                            <div class="form-group">
-                                                <input type="text" name="firstname1[]" class="input-text full-width" placeholder="First Name"  id="firstname">
-                                                <input type="hidden" name="catagory[]" class="input-text full-width" value="Adult" placeholder="" />
-                                                <input type="hidden" name="age[]" class="input-text full-width" value="0" placeholder="" />
-                                                <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
-                                                <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
-                                                <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-2 col-md-2">
-                                            <div class="form-group">
-                                                <input type="text" name="lastname1[]" class="input-text full-width" placeholder="Last Name" id="lastname">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3 col-md-3">
-                                            <div class="form-group">
-                                                <input type="date" name="dob[]" class="input-text full-width" placeholder="DOB" id="">
-                                            </div>
-                                        </div>
-                                        <div class="pull-left col-sm-1 col-md-1">
-                                            <a style="color:grey" class="fa fa-plus-circle fa-2x pull-right bt"></a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <hr />
-
-
-                            <div class="form-group">
+                           <div class="form-group">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" > By continuing, you agree to the <a href="index.php/Index_controller/contact/"><span class="skin-color">Terms and Conditions</span></a>.
@@ -201,7 +142,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 col-md-5">
-                                    <button type="submit"  name="submit" class="full-width btn-large" >CONFIRM BOOKING</button>
+                                    <button type="submit"  name="submit" class="full-width btn-large" >SUBMIT DETAILS</button>
                                 </div>
                             </div>
                         </form>
@@ -256,9 +197,9 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                     <!--<div class="travelo-box contact-box">
                         <h4>Need Blue Sky Excursions Help?</h4>
                         <p>Blue Sky Excursions is a Discount Package based travel club. It is a lifestyle company that focuses on travel and tourism..</p>
-                        <address class="contact-details">>
+                        <address class="contact-details">
+                            <span class="contact-phone"><i class="soap-icon-phone"></i>+91-22-4944 4944</span>
                             <br>
-                            <span class="contact-phone"><i class="soap-icon-phone"></i>+91-22-4944 4944</span
                             <a class="contact-email" href="saraswati.jadhav@softbunch.com">info@blueskyexcursions.in</a>
                         </address>
                     </div>-->
@@ -317,46 +258,56 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
     <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.9.1.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-    <!--    <script type="text/javascript" src="assest/js/validation.js"></script>-->
-
+    <script type="text/javascript" src="assest/js/validation.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
     <script>
-        //        $(document).ready(function(){
-        //                  //if (iCnt != 0) { $('.new' + iCnt).remove(); iCnt = iCnt - 1;iCntt = iCntt - 1 }
-        //            })
-        //        })   var iCnt = 0;
-        //            var nw = 0;
-        //            var iCntt = 1;
-        //            $(".bt").click(function(){
-        //                iCnt = iCnt + 1;
-        //                nw = nw + 1;
-        //                iCntt = iCntt + 1;
-        //                $("#newguest").append("<div class='form-group row new"+iCnt+"'><a id='btt"+nw+"' onclick='del(this.id)' class='btn btn-success  btt'>delete</a><div class='col-sm-1 col-md-1'><div class='form-group'><h4>"+iCntt+".</h4></div></div><div class='col-sm-2 col-md-2'><div class='form-group'><select name='prefix[]' class='input-text full-width'><option value='Mr'>Mr</option><option value='Mrs'>Mrs</option><option value='Ms'>Ms</option></select></div></div><div class='col-sm-4 col-md-4'><div class='form-group'><input type='text' name='firstname1[]' class='input-text full-width' placeholder='First Name' id='firstname'><input type='hidden' name='catagory[]' class='input-text full-width' value='Adult' placeholder='' /><input type='hidden' name='age[]' class='input-text full-width' value='0' placeholder='' /></div></div><div class='col-sm-3 col-md-3'><input type='text' name='lastname1[]' class='input-text full-width' placeholder='Last Name' id='lastname'></div></div>");
-        //            });
-        //            
-        //        })
-        var nw = 0;
-        var iCntt = 1;
-        $(".bt").click(function () {
-            // console.log("test");
-            iCntt = iCntt + 1;
-            $("#newguest").append("<div id='new' class='form-group row'><a id='btt" + nw + "' onclick='del(this.id)' style='color:red' class='fa fa-minus-circle fa-2x  btt'></a><div class='col-sm-1 col-md-1'><div class='form-group'><h4></h4></div></div><div class='col-sm-1 col-md-1'><div style='    width: 53px;' class='form-group'><select style='margin-left: -14px;' name='prefix[]' class='input-text full-width'><option value='Mr'>Mr</option><option value='Mrs'>Mrs</option><option value='Ms'>Ms</option></select></div></div><div class='col-sm-2 col-md-2    '><div class='form-group'><input type='text' name='firstname1[]' class='input-text full-width' placeholder='First Name' id='firstname'><input type='hidden' name='catagory[]' class='input-text full-width' value='Adult' placeholder='' /><input type='hidden' name='age[]' class='input-text full-width' value='0' placeholder='' /></div></div><div class='col-sm-2 col-md-2'><input type='text' name='lastname1[]' class='input-text full-width' placeholder='Last Name' id='lastname'></div><div class='col-sm-3 col-md-3'><div class='form-group'><input type='date' name='dob[]' class='input-text full-width' placeholder='DOB' id=''></div></div></div>");
-            nw++;
+        // When the browser is ready...
+        $(function () {
+
+            // Setup form validation on the #register-form element
+            $("#register-form").validate({
+                // Specify the validation rules
+                rules: {
+                    firstname: "required",
+                    lastname: "required",
+                    address: "required",
+                    c_email: "required",
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    emailConfirm: {
+                        equalTo: "#email"
+                    },
+                    phone: {
+                        required: true,
+                        minlength: 10
+                    },
+                    agree: "required"
+                },
+                // Specify the validation error messages
+                messages: {
+                    firstname: "Please enter your first name",
+                    lastname: "Please enter your last name",
+                    c_email: "Please confirm your email",
+                    address: "Please enter your last name",
+                    phone: {
+                        required: "Please provide a Phone No.",
+                        minlength: "Your Phone No. must be at least 10 characters long"
+                    },
+                    email: "Please enter a valid email address",
+                    emailConfirm: "Email Does Not Match",
+                    agree: "Please accept our policy"
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+
         });
-        $("#btt1").click(function () {
-            console.log("test");
-        });
-
     </script>
-    <script>
-        function del(id)
-        {
-            iCntt = iCntt - 1;
-            document.getElementById('new').remove();
-
-        }
-    </script>
-
-
 </body>
 </html>
 
