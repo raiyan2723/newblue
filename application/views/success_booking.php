@@ -1,3 +1,9 @@
+<?php 
+$night = $booking['Total_nights'];
+$Total_cost=$booking['Package_Cast'] + $booking['Other_Charge'] + $booking['Online_Charge'];
+$amount = $Total_cost;
+$Total= round($amount / $night);
+ ?>
 <div class="page-title-container">
     <div class="container">
         <div class="page-title pull-left">
@@ -24,9 +30,9 @@
                                 <span><?php
                                     if (isset($user_data)) {
                                         echo $user_data['first_name'];
-                                    } else {
+                                    } elseif(isset($user_data2)) {
                                         echo $user_data2['fname'];
-                                    }
+                                    }else{}
                                     ?></span>
                             </div>
                             <div class="form-group"> 
@@ -57,21 +63,21 @@
                 <div class="col-lg-2 col-sm-2 col-xs-2"></div>
                 <div class="panel panel-default col-lg-6 col-sm-6 col-xs-6">
                     <div class=" panel-body">
-                        <div class="col-sm-8 col-xs-8">
-                            <img src="<?php echo $booking['Packages_image']; ?>" alt="Image" style="height: 151px" width="100%"/>
+                        <div class="col-sm-6 col-xs-6">
+                            <img src="<?php echo $booking['Packages_image']; ?>" alt="Image" height="150px" width="250px"/>
                         </div>
-                        <div class="col-sm-3 col-xs-3">
+                        <div class="col-sm-6 col-xs-6">
                             <div class="form-group"> 
                                 <label class="label-control">Packages:</label>&nbsp;&nbsp;&nbsp;
-                                <span><?php echo $productinfo = $this->input->post('productinfo'); ?></span>
+                                <span><?php echo $booking['Packages_Name']; ?></span>
                             </div>
                             <div class="form-group"> 
                                 <label class="label-control">Night:</label>&nbsp;&nbsp;&nbsp;
-                                <span><?php echo $night = $this->input->post('night'); ?></span>
+                                <span><?php echo $booking['Total_nights']; ?></span>
                             </div>
                             <div class="form-group"> 
                                 <label class="label-control">Price:</label>&nbsp;&nbsp;&nbsp;
-                                <span><?php echo $amount = $this->input->post('amount'); ?></span>
+                                <span><?php echo $Total_cost; ?></span>
                             </div>
 
                         </div>
@@ -95,17 +101,20 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><?php echo $amount = $this->input->post('productinfo'); ?></td>
+                                        <td><?php echo $amount =  $Total_cost; ?></td>
                                         <td><?php
                                             if (isset($user)) {
-                                                echo $user['countt'];
+                                                $coun1= $user['countt'];
+												echo  $coun1;
                                             } else {
-                                                echo $guest['countt'];
+                                                $coun2= $guest['countt'];
+												echo  $coun2;
                                             }
-                                            ?></td>
-                                        <td>Price/Night</td>
-                                        <td>Nights</td>
-                                        <td>Total Price</td>
+                                            ?>
+											</td>
+                                        <td><?php echo $Total;?></td>
+                                        <td><?php echo $night = $booking['Total_nights']; ?></td>
+                                        <td><?php echo $amount = $Total_cost; ?></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -118,7 +127,17 @@
             <div class="row">
 
                 <div class="col-xs-11 col-md-11 form-group text-right wll">
-                    <label class=""><strong style="font-size: large;">Grand Total: <i class="fa fa-inr"></i> <?php echo $amount = $this->input->post('amount'); ?></strong></label>
+                    <label class=""><strong style="font-size: large;">Grand Total: <i class="fa fa-inr"></i> 
+								<?php if (isset($user)) {
+                                                $count= $user['countt'];
+												echo  $coun1*$amount;
+                                            } else {
+                                                $count= $guest['countt'];
+												echo  $coun2*$amount;
+                                            } ?>
+
+					
+					</strong></label>
                 </div>
             </div>
 
@@ -131,7 +150,7 @@
                         </label>
                     </div>
                     <div class="col-xs-6 col-md-6">
-                        <button class="btn btn-primary pull-right" type="submit">Book</button>
+                        <a href="<?php echo site_url('Index_controller/booked');?>"><button class="btn btn-primary pull-right" type="submit">Book</button></a>
                     </div>
                 </div>
             </div>

@@ -75,10 +75,12 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
             </div>
             <ul class="breadcrumbs pull-right">
                 <li><a href="index.php">HOME</a></li>
-                <li class="active">Hotel Booking</li>
+                <li class="active">Hotel Booking </li>
             </ul>
         </div>
     </div>
+
+
     <section id="content" class="gray-area">
         <div class="container">
             <div class="row">
@@ -94,46 +96,51 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                             <input type="hidden" name="txnid" value="<?php echo $txnid ?>" />
                             <input type="hidden" name="service_provider" value="payu_paisa" size="64" />
                             <div class="person-information">
+                                <h4 class="error"><?php
+                                    if (isset($error)) {
+                                        echo $error;
+                                    }
+                                    ?></h4>
                                 <h2>Your Personal Information</h2>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
-										<input type="text" name="firstname" class="input-text full-width"  id="firstname" value="<?php echo (empty($user['first_name'])) ? '' : $user['first_name']; ?>" placeholder="First Name" />
+                                        <input type="text" name="firstname" class="input-text full-width"  id="firstname" value="<?php echo (empty($user['first_name'])) ? '' : $user['first_name']; ?>" placeholder="First Name" />
                                         <input type="hidden" name="amount" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
                                         <input type="hidden" name="productinfo" class="input-text full-width" value="<?php echo $booking['Packages_Name']; ?>" placeholder="" />
                                         <input type="hidden" name="night" class="input-text full-width" value="<?php echo $booking['Total_nights']; ?>" placeholder="" />
-										<input type="hidden" name="image" class="input-text full-width" value="<?php echo $booking['Packages_image']; ?>" placeholder="" />
+                                        <input type="hidden" name="image" class="input-text full-width" value="<?php echo $booking['Packages_image']; ?>" placeholder="" />
 
                                     </div>
                                     <div class="col-sm-6 col-md-5">
-                                   <input type="text" name="lastname" class="input-text full-width" id="lastname"  value="<?php echo (empty($user['last_name'])) ? '' : $user['last_name']; ?>"placeholder="Last name" />
+                                        <input type="text" name="lastname" class="input-text full-width" id="lastname"  value="<?php echo (empty($user['last_name'])) ? '' : $user['last_name']; ?>"placeholder="Last name" />
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
-                                        
+
                                         <input type="email" name="email" class="input-text full-width" id="email"  value="<?php echo (empty($user['email'])) ? '' : $user['email']; ?>" placeholder="Email Address" />
                                     </div>
                                     <div class="col-sm-6 col-md-5">
-                                        
+
                                         <input type="text" class="input-text full-width" name="emailConfirm"  id="emailConfirm" value="" placeholder="Confirm E-mail Address" / >
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 col-md-5">
-                                       
+
                                         <div class="#">
                                             <input type="text" class="input-text full-width" id="address" name="address" value="<?php echo (empty($user['Address'])) ? '' : $user['Address']; ?>" placeholder="Address" />
                                         </div>
                                     </div>
                                     <div class="col-sm-6 col-md-5">
-                                       
+
                                         <input type="text" name="phone" class="input-text full-width" id="phone" value="<?php echo (empty($user['phone'])) ? '' : $user['phone']; ?>" placeholder="Phone number" maxlength="10" size="10">
                                     </div>
                                 </div>
 
                             </div>
                             <hr/>
-                           <div class="form-group">
+                            <div class="form-group">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" > By continuing, you agree to the <a href="index.php/Index_controller/contact/"><span class="skin-color">Terms and Conditions</span></a>.
@@ -259,9 +266,9 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
     <script src="//code.jquery.com/jquery-1.9.1.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
     <script type="text/javascript" src="assest/js/validation.js"></script>
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
-<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
     <script>
         // When the browser is ready...
         $(function () {

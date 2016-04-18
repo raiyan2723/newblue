@@ -461,11 +461,63 @@ class Cms_model extends CI_Model {
         return $query->row_array();
     }
 
-    function guest_booking_user_detail($id,$user_type) {
-        $sql = "select count(g.id)as countt  from guest g
+    function guest_booking_user_detail($id, $user_type) {
+        $sql = "select count(g.id)as countt,g.random  from guest g
                 where g.user_id=$id and g.user_type='$user_type' and g.status='Active'";
         $query = $this->db->query($sql);
         return $query->row_array();
+    }
+
+    function booked($data) {
+        return $this->db->insert('booking', $data);
+    }
+
+    function status_chnage_guest($id, $data) {
+        $this->db->where(array('user_id' => $id));
+        return $this->db->update('guest', $data);
+    }
+
+    function booking_data($offset, $limit) {
+        $this->db->order_by("book_id", "desc");
+        //$this->db->group_by("email");
+        $query = $this->db->get("booking", $offset, $limit);
+
+        return $query->result();
+    }
+
+    function booking_user_view($u_id, $user_type,$random) {
+        $sql = "select g.first_name,g.random,g.id,g.last_name,g.created,g.night,g.package,g.price,g.prefix,g.dob from guest g
+                where g.user_id=$u_id and g.user_type='$user_type' and g.random=$random order by id desc";
+
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+    function guest_login2($email) {
+        $sql = "select * from guest_login gl
+                where gl.email='$email'";
+
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+    function user_login2($email) {
+        $sql = "select * from login l
+                where l.email='$email'";
+
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    function booking_user_view2($u_id, $user_type) {
+        $sql = "select l.u_id,b.Packages from login l
+    inner join booking b
+    on l.u_id=b.user_id
+    where b.user_id=$u_id and l.user_type='$user_type'
+        ";
+        $query = $this->db->query($sql);
+        print_r($this->db->last_query());
+        die;
+
+        return $query->result();
     }
 
 }
