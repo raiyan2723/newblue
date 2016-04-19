@@ -6,11 +6,11 @@
 <div id="content" class="col-md-12">
    <!-- page header -->
    <div class="pageheader">
-      <h2><i class="fa fa-lightbulb-o" style="line-height: 48px;padding-left: 0;"></i>Contact Us User <span></span></h2>
+      <h2><i class="fa fa-lightbulb-o" style="line-height: 48px;padding-left: 0;"></i>Subscribe User <span></span></h2>
       <div class="breadcrumbs">
          <ol class="breadcrumb">
             <li>You are here</li>
-            <li><a href="index.php/Cms/index">cms</a></li>
+            <li><a href="index.php/Cms/index">Subscription</a></li>
             <li class="active"></li>
          </ol>
       </div>
@@ -43,10 +43,8 @@
                         <thead>
                            <tr>
 							<th class="sort-alpha">Sr.No</th>
-							<th class="sort-alpha">Name</th>
 							<th class="sort-alpha">Email</th>
-							<th class="sort-alpha">Subject</th>
-							<th class="sort-alpha">Message</th>
+							
                              
 							<th>Options</th>
                            </tr>
@@ -54,17 +52,10 @@
                         <tbody>
 							<?php foreach($menu as $data){?>
 						<tr>
-						<td><?=$data["c_id"];?></td>
-						<td><?=$data["Name"];?></td>
+						<td><?=$data["subscribe_id"];?></td>
 						<td><?=$data["email"];?></td>
-						<td><?=$data["subject"];?></td>
-						<td><?=substr($data["message"],0,30);?></td>
-						
-					
-						
 						<td>
-							<a href="<?php echo base_url()?>index.php/User/Contact_Details/<?= $data["c_id"]; ?>"><button type="button" class="btn btn-info"><b>View</b></button></a>
-							&nbsp; <a href="<?php echo base_url()?>index.php/User/Delete_Contact/<?= $data["c_id"]; ?>"><button type="button" class="btn btn-danger"><b>Delete</b></button></a>
+							&nbsp; <a href="<?php echo base_url()?>index.php/User/Delete_Subscription/<?= $data["subscribe_id"]; ?>"><button type="button" class="btn btn-danger"><b>Delete</b></button></a>
 						</td>
 						</tr>
 							<?php }?>

@@ -442,12 +442,14 @@ class Cms_model extends CI_Model {
     }
 
     function insert_gst_details() {
+        $random=rand(0000,9999);
         $data = array(
             'fname' => $this->input->post('firstname'),
             'lname' => $this->input->post('lastname'),
             'email' => $this->input->post('email'),
             'address' => $this->input->post('address'),
-            'phone' => $this->input->post('phone')
+            'phone' => $this->input->post('phone'),
+            'ran_pass' => $random
         );
         $this->db->insert('guest_login', $data);
         $guest_id = $this->db->insert_id();
@@ -485,13 +487,14 @@ class Cms_model extends CI_Model {
         return $query->result();
     }
 
-    function booking_user_view($u_id, $user_type,$random) {
+    function booking_user_view($u_id, $user_type, $random) {
         $sql = "select g.first_name,g.random,g.id,g.last_name,g.created,g.night,g.package,g.price,g.prefix,g.dob from guest g
                 where g.user_id=$u_id and g.user_type='$user_type' and g.random=$random order by id desc";
 
         $query = $this->db->query($sql);
         return $query->result();
     }
+
     function guest_login2($email) {
         $sql = "select * from guest_login gl
                 where gl.email='$email'";
@@ -499,6 +502,7 @@ class Cms_model extends CI_Model {
         $query = $this->db->query($sql);
         return $query->row_array();
     }
+
     function user_login2($email) {
         $sql = "select * from login l
                 where l.email='$email'";
@@ -518,6 +522,25 @@ class Cms_model extends CI_Model {
         die;
 
         return $query->result();
+    }
+
+    function Delete_Subscription_data($id) {
+        $this->db->where('subscribe_id', $id);
+        $this->db->delete('subscribe');
+    }
+
+    function register_data($offset, $limit) {
+        $query = $this->db->get('login', $offset, $limit);
+        return $query->result_array();
+    }
+
+    function get_view_user($id) {
+        return $this->db->where("u_id", $id)->get("login")->row_array();
+    }
+
+    function delete_register_data($id) {
+        $this->db->where('u_id', $id);
+        $this->db->delete('login');
     }
 
 }

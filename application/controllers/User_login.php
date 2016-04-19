@@ -14,7 +14,7 @@ class User_login extends CI_Controller {
 	public function User_account()
 
 	{
-		$this->session->all_userdata();
+		//print_r( $this->session->all_userdata());
 		$data['menu'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
 		//echo "<pre>";print_r($data['menu']);die;
 		//$data['username']=$this->session->userdata('fisrt_name');
@@ -74,6 +74,39 @@ class User_login extends CI_Controller {
             return $link = $img_url;
         }
     }
+	
+	public function change()
+	{
+		 if(!$this->session->userdata('loggedIn')){
+      redirect('login');
+    $this->form_validation->set_rules('old_password', 'Password', 'trim|required|xss_clean');
+    $this->form_validation->set_rules('newpassword', 'New Password', 'required|matches[re_password]');
+    $this->form_validation->set_rules('re_password', 'Retype Password', 'required');
+    if($this->form_validation->run() == FALSE){
+       $this->data['title'] = 'Change Password';
+        $sessionData = $this->session->userdata('loggedIn');
+        $this->data['id'] = $sessionData['id'];
+        $this->data['username'] = $sessionData['username'];
+        $this->data['type'] = $sessionData['type'];
+
+        $this->load->view('templates/header', $this->data);
+        $this->load->view('pages/change_password');
+        $this->load->view('templates/footer');
+    }else{
+      $query = $this->um->checkOldPass(sha1($this->input->post('old_password')));
+      if($query){
+        $query = $this->um->saveNewPass(sha1($this->input->post('newpassword')));
+        if($query){
+          redirect('change_password');
+        }else{
+          redirect('change_password');
+        }
+      }
+
+    }
+  }
+  
+}
 	
 }
 

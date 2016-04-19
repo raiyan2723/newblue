@@ -10,6 +10,7 @@ class Index_controller extends CI_Controller {
     }
 
     public function index() {
+        $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
         $data['menu'] = $this->Cms_model->get_menu_packages();
         $data['home_data'] = $this->Cms_model->get_home_table();
         $data['slider_data'] = $this->Cms_model->get_slider_table();
@@ -18,6 +19,7 @@ class Index_controller extends CI_Controller {
         $data['footer_about'] = $this->Cms_model->get_Footer_About();
         //echo "<pre>";
         //print_r($data['footer_about'][0]['content']);die;
+        $this->session->flashdata('msg');
         $this->load->view('include/head_view', $data);
         $this->load->view('include/top_bar_view');
         $this->load->view('index');
@@ -28,6 +30,7 @@ class Index_controller extends CI_Controller {
     }
 
     public function leisures() {
+        $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
         $data['menu'] = $this->Cms_model->get_menu_packages();
         $data['discover_data'] = $this->Cms_model->get_Discover();
         $data['news_data'] = $this->Cms_model->get_news();
@@ -49,6 +52,7 @@ class Index_controller extends CI_Controller {
         $data['discover_data'] = $this->Cms_model->get_Discover();
         $data['news_data'] = $this->Cms_model->get_news();
         $data['footer_about'] = $this->Cms_model->get_Footer_About();
+        $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
         $this->load->view('include/head_view', $data);
         $this->load->view('include/top_bar_view');
         $this->load->view('individual_package');
@@ -61,6 +65,7 @@ class Index_controller extends CI_Controller {
         $data['news_data'] = $this->Cms_model->get_news();
         $data['footer_about'] = $this->Cms_model->get_Footer_About();
         $data['contact_details'] = $this->Cms_model->get_contact_data();
+        $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
         $this->load->view('include/head_view', $data);
         $this->load->view('include/top_bar_view');
         $this->load->view('contact');
@@ -73,6 +78,7 @@ class Index_controller extends CI_Controller {
         $data['news_data'] = $this->Cms_model->get_news();
         $data['footer_about'] = $this->Cms_model->get_Footer_About();
         $data['about'] = $this->Cms_model->get_About();
+        $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
         $this->load->view('include/head_view', $data);
         $this->load->view('include/top_bar_view');
         $this->load->view('about');
@@ -120,6 +126,7 @@ class Index_controller extends CI_Controller {
             $data['user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
             //echo "<pre>";print_r($data);die;
             $l_id = $this->session->userdata('l_id');
+            $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
             $data['menu'] = $this->Cms_model->get_menu_packages();
             $data['booking'] = $this->Cms_model->get_booking_packages($l_id);
             $data['discover_data'] = $this->Cms_model->get_Discover();
@@ -127,6 +134,7 @@ class Index_controller extends CI_Controller {
             $data['footer_about'] = $this->Cms_model->get_Footer_About();
         } else {
             $data['guest'] = $this->Cms_model->guest_detail($this->session->userdata('guest_id'));
+            $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
             $l_id = $this->session->userdata('l_id');
             $data['menu'] = $this->Cms_model->get_menu_packages();
             $data['booking'] = $this->Cms_model->get_booking_packages($l_id);
@@ -144,7 +152,7 @@ class Index_controller extends CI_Controller {
         if ($this->session->userdata('u_id') || $this->session->userdata('guest_id')) {
             if ($this->input->post()) {
                 if ($this->session->userdata('u_id')) {
-                    $rand = rand(0, 9);
+                    $rand = rand(0000, 9999);
                     for ($i = 0; $i < count($this->input->post('firstname1')); $i++) {
                         $array = array(
                             'first_name' => $this->input->post('firstname1')[$i],
@@ -164,7 +172,7 @@ class Index_controller extends CI_Controller {
                         $this->Cms_model->add_guest($array);
                     }
                 } elseif ($this->session->userdata('guest_id')) {
-                    $rand = rand(0, 9);
+                    $rand = rand(0000, 9999);
                     $check = $this->Cms_model->guest_detail($this->session->userdata('guest_id'));
                     for ($i = 0; $i < count($this->input->post('firstname1')); $i++) {
                         $array = array(
@@ -212,9 +220,10 @@ class Index_controller extends CI_Controller {
             $data['about'] = $this->Cms_model->get_About();
             $l_id = $this->session->userdata('l_id');
             $data['booking'] = $this->Cms_model->get_booking_packages($l_id);
-
+            $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
             if ($this->session->userdata('u_id')) {
                 $data['user_data'] = $this->User_model->user_data($this->session->userdata('u_id'));
+                $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
                 $user_type = "user";
                 $data['user'] = $this->Cms_model->guest_booking_user_detail($this->session->userdata('u_id'), $user_type);
             } elseif ($this->session->userdata('guest_id')) {
@@ -241,6 +250,7 @@ class Index_controller extends CI_Controller {
         $data['discover_data'] = $this->Cms_model->get_Discover();
         $data['news_data'] = $this->Cms_model->get_news();
         $data['footer_about'] = $this->Cms_model->get_Footer_About();
+        $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
         $this->load->view('include/head_view', $data);
         $this->load->view('include/top_bar_view');
         $this->load->view('user_details');
@@ -265,6 +275,7 @@ class Index_controller extends CI_Controller {
                 $data['discover_data'] = $this->Cms_model->get_Discover();
                 $data['news_data'] = $this->Cms_model->get_news();
                 $data['footer_about'] = $this->Cms_model->get_Footer_About();
+                $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
                 $data['error'] = "You are register User Please Login To continue";
                 $this->load->view('include/head_view', $data);
                 $this->load->view('include/top_bar_view');
@@ -371,7 +382,42 @@ class Index_controller extends CI_Controller {
             $guest = $this->Cms_model->guest_booking_user_detail($this->session->userdata('guest_id'), $user_type);
             $user_data2 = $this->Cms_model->guest_detail($this->session->userdata('guest_id'));
             $price = $booking['Package_Cast'] + $booking['Online_Charge'] + $booking['Other_Charge'];
-             header("location:http://localhost/payufornoravillas/PayUMoney_form.php");
+            header("location:http://localhost/payufornoravillas/PayUMoney_form.php");
+        }
+    }
+
+    public function change_pass() {
+        $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
+        $data['menu'] = $this->Cms_model->get_menu_packages();
+        $data['discover_data'] = $this->Cms_model->get_Discover();
+        $data['news_data'] = $this->Cms_model->get_news();
+        $data['footer_about'] = $this->Cms_model->get_Footer_About();
+        $data['about'] = $this->Cms_model->get_About();
+        $this->load->view('include/head_view', $data);
+        $this->load->view('include/top_bar_view');
+        $this->load->view('change');
+        $this->load->view('include/footer_view');
+    }
+
+    public function sendemail() {
+        $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'maildemo33@gmail.com',
+            'smtp_pass' => '64146364',
+        );
+        $this->load->initialize($config);
+        $this->load->library('email ', $config);
+        $this->email->set_newline("\r\n");
+        $this->email->from('your email@gmail.com', 'your Name');
+        $this->email->to('’email@yahoo.com');
+        $this->email->subject(' Your Subject here.. ');
+        $this->email->message('Your Message here..');
+        if (!$this->email->send()) {
+            show_error($this->email->print_debugger());
+        } else {
+            echo 'Your e-mail has been sent!';
         }
     }
 

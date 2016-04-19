@@ -1,4 +1,4 @@
-<?php var_dump($this->session->userdata('guest_id'));?>
+<?php //var_dump($this->session->userdata('guest_id')); ?>
 <?php
 $Total_cost = $booking['Package_Cast'] + $booking['Other_Charge'] + $booking['Online_Charge'];
 //echo $Total_cost;die;
@@ -85,7 +85,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                 <div id="main" class="col-sms-6 col-sm-8 col-md-9">
                     <div class="booking-section travelo-box">
 
-                        <form action="index.php/Index_controller/booking_user" method="post" id="register-form" novalidate="novalidate" name="payuForm">
+                        <form action="index.php/Index_controller/booking_user" id="person" method="post" id="register-form" novalidate="novalidate" name="payuForm">
                             <input type="hidden" name="curl" value="failure.php" />
                             <input type="hidden" name="surl" value="success.php" size="64" />
                             <input type="hidden" name="furl" value="failure.php" size="64" />
@@ -163,7 +163,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                                         <div class="col-sm-2 col-md-2">
 
                                             <div class="form-group">
-                                                <input type="text" name="firstname1[]" class="input-text full-width" placeholder="First Name"  id="firstname">
+                                                <input type="text" name="firstname1[]" class="input-text full-width" required="required" data-msg-required="Please Enter First Name"  placeholder="First Name"  id="firstname">
                                                 <input type="hidden" name="catagory[]" class="input-text full-width" value="Adult" placeholder="" />
                                                 <input type="hidden" name="age[]" class="input-text full-width" value="0" placeholder="" />
                                                 <input type="hidden" name="amount[]" class="input-text full-width" value="<?php echo $Total_cost; ?>" placeholder="" />
@@ -174,12 +174,12 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
 
                                         <div class="col-sm-2 col-md-2">
                                             <div class="form-group">
-                                                <input type="text" name="lastname1[]" class="input-text full-width" placeholder="Last Name" id="lastname">
+                                                <input type="text" name="lastname1[]" class="input-text full-width" required="required" data-msg-required="Please Enter Last Name" placeholder="Last Name" id="lastname">
                                             </div>
                                         </div>
                                         <div class="col-sm-3 col-md-3">
                                             <div class="form-group">
-                                                <input type="date" name="dob[]" class="input-text full-width" placeholder="DOB" id="">
+                                                <input type="date" name="dob[]" class="input-text full-width" required="required" data-msg-required="Please Enter Date" placeholder="DOB" id="">
                                             </div>
                                         </div>
                                         <div class="pull-left col-sm-1 col-md-1">
@@ -314,9 +314,14 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
                     });
         });
     </script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+   
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.9.1.js"></script>
     <script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
     <!--    <script type="text/javascript" src="assest/js/validation.js"></script>-->
 
     <script>
@@ -339,7 +344,7 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
         $(".bt").click(function () {
             // console.log("test");
             iCntt = iCntt + 1;
-            $("#newguest").append("<div id='new' class='form-group row'><a id='btt" + nw + "' onclick='del(this.id)' style='color:red' class='fa fa-minus-circle fa-2x  btt'></a><div class='col-sm-1 col-md-1'><div class='form-group'><h4></h4></div></div><div class='col-sm-1 col-md-1'><div style='    width: 53px;' class='form-group'><select style='margin-left: -14px;' name='prefix[]' class='input-text full-width'><option value='Mr'>Mr</option><option value='Mrs'>Mrs</option><option value='Ms'>Ms</option></select></div></div><div class='col-sm-2 col-md-2    '><div class='form-group'><input type='text' name='firstname1[]' class='input-text full-width' placeholder='First Name' id='firstname'><input type='hidden' name='catagory[]' class='input-text full-width' value='Adult' placeholder='' /><input type='hidden' name='age[]' class='input-text full-width' value='0' placeholder='' /><input type='hidden' name='amount[]' class='input-text full-width' value='<?php echo $Total_cost; ?>' placeholder='' /><input type='hidden' name='productinfo[]' class='input-text full-width' value='<?php echo $booking['Packages_Name']; ?>' placeholder='' /><input type='hidden' name='night[]' class='input-text full-width' value='<?php echo $booking['Total_nights']; ?>' placeholder= /></div></div><div class='col-sm-2 col-md-2'><input type='text' name='lastname1[]' class='input-text full-width' placeholder='Last Name' id='lastname'></div><div class='col-sm-3 col-md-3'><div class='form-group'><input type='date' name='dob[]' class='input-text full-width' placeholder='DOB' id=''></div></div></div>");
+            $("#newguest").append("<div id='new' class='form-group row'><a id='btt" + nw + "' onclick='del(this.id)' style='color:red' class='fa fa-minus-circle fa-2x  btt'></a><div class='col-sm-1 col-md-1'><div class='form-group'><h4></h4></div></div><div class='col-sm-1 col-md-1'><div style='    width: 53px;' class='form-group'><select style='margin-left: -14px;' name='prefix[]' class='input-text full-width'><option value='Mr'>Mr</option><option value='Mrs'>Mrs</option><option value='Ms'>Ms</option></select></div></div><div class='col-sm-2 col-md-2    '><div class='form-group'><input type='text' name='firstname1[]' required='required' data-msg-required='Please Enter First Name' class='input-text full-width' placeholder='First Name' id='firstname' aria-required='true' aria-invalid='false'><input type='hidden' name='catagory[]' class='input-text full-width' value='Adult' placeholder='' /><input type='hidden' name='age[]' class='input-text full-width' value='0' placeholder='' /><input type='hidden' name='amount[]' class='input-text full-width' value='<?php echo $Total_cost; ?>' placeholder='' /><input type='hidden' name='productinfo[]' class='input-text full-width' value='<?php echo $booking['Packages_Name']; ?>' placeholder='' /><input type='hidden' name='night[]' class='input-text full-width' value='<?php echo $booking['Total_nights']; ?>' placeholder= /></div></div><div class='col-sm-2 col-md-2'><input type='text' name='lastname1[]' class='input-text full-width' required='required' data-msg-required='Please Enter Last Name' placeholder='Last Name' id='lastname'></div><div class='col-sm-3 col-md-3'><div class='form-group'><input type='date' name='dob[]' class='input-text full-width' required='required' data-msg-required='Please Enter DOB' placeholder='DOB' id=''></div></div></div>");
             nw++;
         });
         $("#btt1").click(function () {
@@ -356,6 +361,31 @@ if (empty($posted['hash']) && sizeof($posted) > 0) {
         }
     </script>
 
+    <script>
+        // When the browser is ready...
+        $(document).ready(function () {
+
+            // Setup form validation on the #register-form element
+            $("#person").validate({
+                // Specify the validation rules
+                rules: {
+                    firstname1: "required",
+                    lastname1: "required",
+                    dob: "required",
+                },
+                // Specify the validation error messages
+                messages: {
+                    firstname1: "Please enter your first name",
+                    lastname1: "Please enter your last name",
+                    dob: "Please enter DOB",
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+
+        });
+    </script>
 
 </body>
 </html>

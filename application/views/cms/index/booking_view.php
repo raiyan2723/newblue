@@ -96,7 +96,7 @@
                                             <td><?php echo date('d-M-Y H:i:a', strtotime($bk->date)); ?></td>
                                             <td><?php echo $bk->Packages; ?></td>
                                             <td><span class="fa fa-inr"> <?php echo $bk->total_price; ?></span></td>
-                                            <td><a href="<?php echo site_url('Cms/booking_user_view?id=' . $bk->user_id . '&user_type=' . $bk->user_type . '&number=' . $bk->random . '') ?>"><button class="btn btn-success">View</button></a> </td>
+                                            <td><a href="<?php echo site_url('Cms/booking_user_view?id=' . $bk->user_id . '&user_type=' . $bk->user_type . '&number=' . $bk->random . '') ?>"><button class="btn btn-success">View</button></a></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

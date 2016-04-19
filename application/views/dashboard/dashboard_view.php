@@ -1,7 +1,6 @@
-<?php
-// echo ($menu['phone']=="")?"blank":$menu['phone'];
-//echo "<pre>"; print_r($menu);die;
-?>
+<style>
+    .error {color: #FF0000;}
+</style>
 <body class="dashboard style1">
     <div id="page-wrapper">
         <header id="header" class="navbar-static-top">
@@ -290,7 +289,7 @@
                             <div class="view-profile">
                                 <article class="image-box style2 box innerstyle personal-details">
                                     <figure>
-                                        <a title="" href="#"><img width="270" height="263" alt="" src="<?php echo (empty($menu['image'])) ? '' : $menu['image']; ?>"></a>
+                                        <a title="" href="#"><img width="270" height="263" alt="" src="<?php echo (empty($menu['image'])) ? 'uploads/User_image/1448450106.jpg' : $menu['image']; ?>"></a>
                                     </figure>
                                     <div class="details">
                                         <a href="#" class="button btn-mini pull-right edit-profile-btn">EDIT PROFILE</a>
@@ -369,50 +368,50 @@
                                     <div class="col-sm-9 no-padding no-float">
                                         <div class="row form-group">
                                             <div class="col-sms-6 col-sm-6">
-                                                <label>First Name</label>
-                                                <input type="text" class="input-text full-width" placeholder="" value="<?php echo ucfirst($menu["first_name"]);?>" name="f_name">
+                                               
+                                                <input type="text" class="input-text full-width" placeholder="First Name" value="<?php echo ucfirst($menu["first_name"]);?>" name="f_name">
                                             </div>
                                             <div class="col-sms-6 col-sm-6">
-                                                <label>Last Name</label>
-                                                <input type="text" class="input-text full-width" placeholder="" value="<?php echo ucfirst($menu["last_name"]);?>" name="l_name">
+                                             
+                                                <input type="text" class="input-text full-width" placeholder="Last Name" value="<?php echo ucfirst($menu["last_name"]);?>" name="l_name">
                                             </div>
                                         </div>
                                         <div class="row form-group">
                                             <div class="col-sms-6 col-sm-6">
-                                                <label>Email Address</label>
-                                                <input type="email" class="input-text full-width" placeholder="" value="<?php echo $menu["email"];?>" name="email">
+                                               
+                                                <input type="email" class="input-text full-width" placeholder="Email Address" value="<?php echo $menu["email"];?>" name="email">
                                             </div>
                                             <div class="col-sms-6 col-sm-6">
-                                                <label>Phone Number</label>
-                                               <input type="text" class="input-text full-width" placeholder="" name="p_no" value="<?php echo (empty($menu['phone'])) ? '' : $menu['phone']; ?>">
+                                               
+                                               <input type="text" class="input-text full-width" placeholder="Phone Number" name="p_no" value="<?php echo (empty($menu['phone'])) ? '' : $menu['phone']; ?>">
                                             </div>
 											</div>
                                        
                                         <div class="row form-group">
                                             <div class="col-sms-6 col-sm-6">
-                                                <label>Date of Birth</label>
-                                               <input type="date" class="input-text full-width" placeholder="" name="dob" value="<?php echo (empty($menu['DOB'])) ? '' : $menu['DOB']; ?>">
+                                              
+                                               <input type="date" class="input-text full-width" placeholder="Date of Birth" name="dob" value="<?php echo (empty($menu['DOB'])) ? '' : $menu['DOB']; ?>">
                                             </div>
 										 </div>
                                         <hr>
-                                        <h2>Upload Profile Photo</h2>
+                                        
                                         <div class="row form-group">
                                             <div class="col-sms-12 col-sm-6 no-float">
                                                 <div class="fileinput full-width">
                                                     <input type="file" class="input-text" data-placeholder="select image/s" name="user_image">
-													 <input type="hidden" name="user_image" value="<?php echo (empty($menu['image'])) ? '' : $menu['image']; ?>" >
+													 <input type="hidden" name="user_image" value="<?php echo (empty($menu['image'])) ? '' : $menu['image']; ?>"  placeholder="Upload Profile Photo">
                                                 </div>
                                             </div>
                                         </div>
 										<hr>
                                         <h2>Complete Address</h2>
                                         <div class="form-group">
-                                            <textarea rows="2" class="input-text full-width" placeholder="please tell us about you" name="Address" ><?php echo (empty($menu['Address'])) ? '' : $menu['Address']; ?></textarea>
+                                            <textarea rows="2" class="input-text full-width" placeholder="Complete Address" name="Address" ><?php echo (empty($menu['Address'])) ? '' : $menu['Address']; ?></textarea>
                                         </div>
                                         <hr>
                                         <h2>Describe Yourself</h2>
                                         <div class="form-group">
-                                            <textarea rows="5" class="input-text full-width" placeholder="please tell us about you" name="description"><?php echo (empty($menu['yourself'])) ? '' : $menu['yourself']; ?></textarea>
+                                            <textarea rows="5" class="input-text full-width" placeholder="Describe Yourself" name="description"><?php echo (empty($menu['yourself'])) ? '' : $menu['yourself']; ?></textarea>
                                         </div>
                                         <div class="from-group">
                                             <button type="submit" class="btn-medium col-sms-6 col-sm-4">UPDATE SETTINGS</button>
@@ -685,49 +684,55 @@
                         </div>
                         <div id="settings" class="tab-pane fade">
                             <h2>Account Settings</h2>
+							
                             <h5 class="skin-color">Change Your Password</h5>
-                            <form>
+							  <h4 class="error"><?php
+                                    if (isset($error)) {
+                                        echo $error;
+                                    }
+                                    ?></h4>
+                            <form action="<?php echo base_url().'index.php/Login/change_p'?>" id="register-form" method="post">
                                 <div class="row form-group">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label>Old Password</label>
-                                        <input type="text" class="input-text full-width">
+                                        
+                                        <input type="pass" name="oldpass" class="input-text full-width" placeholder="Old Password">
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label>Enter New Password</label>
-                                        <input type="text" class="input-text full-width">
+                                        
+                                        <input type="pass" name="newpass" id="newpass" class="input-text full-width" placeholder="Enter New Password">
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label>Confirm New password</label>
-                                        <input type="text" class="input-text full-width">
+                                        
+                                        <input type="pass" name="c_pass" id="c_pass" class="input-text full-width" placeholder="Confirm New password">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn-medium">UPDATE PASSWORD</button>
+                                    <button class="btn-medium">UPDATE PASSWORD
+									</button>
                                 </div>
                             </form>
                             <hr>
                             <h5 class="skin-color">Change Your Email</h5>
-                            <form>
+                            <form action="<?php echo base_url().'index.php/Login/change_email'?>" id="emailedit" novalidate="novalidate"  method="post">
                                 <div class="row form-group">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label>Old email</label>
-                                        <input type="text" class="input-text full-width">
+                                        <input type="email" class="input-text full-width" name="oldemail" placeholder="Old email" value="" required="required" data-msg-required="Please your email address" />
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label>Enter New Email</label>
-                                        <input type="text" class="input-text full-width">
+                                       
+                                        <input type="email" class="input-text full-width"  name="uemail" placeholder="Enter Your New Email" required="required" data-msg-required="Please your email address" />
                                     </div>
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
-                                        <label>Confirm New Email</label>
-                                        <input type="text" class="input-text full-width">
+                                        
+                                        <input type="email" class="input-text full-width" name="cemail" value="" required="required" data-rule-equalto="input[name=uemail]" data-msg-required="Please confirm your email address" data-msg-equalto="Email addresses do not match"  placeholder="Confirm New Email">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -767,9 +772,8 @@
                             <nav id="main-menu" role="navigation" class="hidden-mobile inline-block">
                                 <ul class="menu">
                                     <li class="menu-item-has-children menu-color-blue">
-                                        <a href="index/index.php">Home</a>
- 
-                                    </li>
+                                        <a href="index.php/Index_controller/index">Home</a>
+									</li>
                                     <li class="menu-item-has-children menu-color-blue">
                                         <a href="hotel-index.html">Hotels</a>
                                         <ul>
@@ -792,4 +796,83 @@
       </footer>
     </div>
 
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+    <script>
+        // When the browser is ready...
+		
+		$(function () {
+
+            // Setup form validation on the #register-form element
+            $("#register-form").validate({
+                // Specify the validation rules
+                rules: {
+                    oldpass: "required",
+					 c_pass: "required",
+				 newpass: {
+                        required: true,
+                        
+                    },
+                    c_pass: {
+                        equalTo: "#newpass"
+                    },
+					
+                    phone: {
+                        required: true,
+                        minlength: 10
+                    },
+                    agree: "required"
+                },
+                // Specify the validation error messages
+                messages: {
+                    oldpass: "Please enter your old Password",
+                    oldemail: "Please enter your old Email",
+                    c_email: "Please confirm your email",
+                   
+                    phone: {
+                        required: "Please provide a Phone No.",
+                        minlength: "Your Phone No. must be at least 10 characters long"
+                    },
+                   
+                  c_pass: "Password Does Not Match",
+                    agree: "Please accept our policy"
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+
+        });
+    </script>
+	<script>
+        // When the browser is ready...
+       $(function () {
+
+            // Setup form validation on the #emailedit element
+            $("#emailedit").validate({
+                // Specify the validation rules
+                rules: {
+					oldemail: "required",
+					c_email: "required",
+                    email: {
+                        required: true
+                   },
+                    emailConfirm: {
+                        equalTo: "#email"
+                    },
+					
+					
+                    agree: "required"
+                },
+                // Specify the validation error messages
+               //.................
+                submitHandler: function (form) 
+				{
+                    form.submit();
+                }
+            });
+
+        });
+    </script>
 

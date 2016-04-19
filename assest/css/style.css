@@ -8050,7 +8050,7 @@ ul.search-tabs {
     line-height: 30px;
     display: block; }
 .dashboard #content, .post-404page #content, .soap-login-page #content {
-  background: none; }
+  background: #ccc; }
 .dashboard #footer .footer-wrapper, .post-404page #footer .footer-wrapper, .soap-login-page #footer .footer-wrapper {
   padding-top: 40px;
   padding-bottom: 50px; }
