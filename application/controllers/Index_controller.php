@@ -120,6 +120,18 @@ class Index_controller extends CI_Controller {
       }
      */
 
+    public function delete_active() {
+        if ($this->session->userdata('u_id')) {
+            $user_type = "user";
+            $this->Cms_model->delete_active($this->session->userdata('u_id'), $user_type);
+            redirect('Index_controller/booking');
+        } else {
+            $user_type = "guest";
+            $this->Cms_model->delete_active($this->session->userdata('guest_id'), $user_type);
+            redirect('Index_controller/booking');
+        }
+    }
+
     public function booking($l_id = null) {
         if ($this->session->userdata('u_id')) {
             $this->session->all_userdata();
@@ -149,6 +161,7 @@ class Index_controller extends CI_Controller {
     }
 
     public function booking_user() {
+
         if ($this->session->userdata('u_id') || $this->session->userdata('guest_id')) {
             if ($this->input->post()) {
                 if ($this->session->userdata('u_id')) {
@@ -195,8 +208,8 @@ class Index_controller extends CI_Controller {
                 }
 
                 //$this->Cms_model->insert_booking_user();
-                //redirect('Index_controller/success');
-                $this->success();
+                redirect('Index_controller/success', 'refresh');
+                //$this->success();
             } else {
                 echo "error";
             }
@@ -207,39 +220,35 @@ class Index_controller extends CI_Controller {
 
     public function success() {
 
-        if (isset($_POST['submit'])) {
-            $a['v'] = $this->db->insert_id();
-            //echo "<pre>"; print_r($a['v']);die;
-            $data['menu'] = $this->Cms_model->get_menu_packages();
-            //echo "<pre>"; print_r($data['menu']);die;
-            $data['discover_data'] = $this->Cms_model->get_Discover();
-            //echo "<pre>"; print_r($data['discover_data']);die;
-            $data['news_data'] = $this->Cms_model->get_news();
-            //echo "<pre>"; print_r($data['news_data']);die;
-            $data['footer_about'] = $this->Cms_model->get_Footer_About();
-            $data['about'] = $this->Cms_model->get_About();
-            $l_id = $this->session->userdata('l_id');
-            $data['booking'] = $this->Cms_model->get_booking_packages($l_id);
+
+        $a['v'] = $this->db->insert_id();
+        //echo "<pre>"; print_r($a['v']);die;
+        $data['menu'] = $this->Cms_model->get_menu_packages();
+        //echo "<pre>"; print_r($data['menu']);die;
+        $data['discover_data'] = $this->Cms_model->get_Discover();
+        //echo "<pre>"; print_r($data['discover_data']);die;
+        $data['news_data'] = $this->Cms_model->get_news();
+        //echo "<pre>"; print_r($data['news_data']);die;
+        $data['footer_about'] = $this->Cms_model->get_Footer_About();
+        $data['about'] = $this->Cms_model->get_About();
+        $l_id = $this->session->userdata('l_id');
+        $data['booking'] = $this->Cms_model->get_booking_packages($l_id);
+        $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
+        if ($this->session->userdata('u_id')) {
+            $data['user_data'] = $this->User_model->user_data($this->session->userdata('u_id'));
             $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
-            if ($this->session->userdata('u_id')) {
-                $data['user_data'] = $this->User_model->user_data($this->session->userdata('u_id'));
-                $data['top_user'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
-                $user_type = "user";
-                $data['user'] = $this->Cms_model->guest_booking_user_detail($this->session->userdata('u_id'), $user_type);
-            } elseif ($this->session->userdata('guest_id')) {
-                $user_type = "guest";
-                $data['guest'] = $this->Cms_model->guest_booking_user_detail($this->session->userdata('guest_id'), $user_type);
-                $data['user_data2'] = $this->Cms_model->guest_detail($this->session->userdata('guest_id'));
-            }
-
-            $this->load->view('include/head_view', $data);
-            $this->load->view('include/top_bar_view');
-            $this->load->view('success_booking');
-            $this->load->view('include/footer_view');
-        } else {
-
-            $this->leisures();
+            $user_type = "user";
+            $data['user'] = $this->Cms_model->guest_booking_user_detail($this->session->userdata('u_id'), $user_type);
+        } elseif ($this->session->userdata('guest_id')) {
+            $user_type = "guest";
+            $data['guest'] = $this->Cms_model->guest_booking_user_detail($this->session->userdata('guest_id'), $user_type);
+            $data['user_data2'] = $this->Cms_model->guest_detail($this->session->userdata('guest_id'));
         }
+
+        $this->load->view('include/head_view', $data);
+        $this->load->view('include/top_bar_view');
+        $this->load->view('success_booking');
+        $this->load->view('include/footer_view');
     }
 
     public function user_details($l_id = null) {
@@ -294,6 +303,7 @@ class Index_controller extends CI_Controller {
     }
 
     public function booked() {
+        $transaction=$_REQUEST['transaction'];
         $data['menu'] = $this->Cms_model->get_menu_packages();
         //echo "<pre>"; print_r($data['menu']);die;
         $data['discover_data'] = $this->Cms_model->get_Discover();
@@ -323,6 +333,7 @@ class Index_controller extends CI_Controller {
                 'Price' => $price,
                 'total_price' => $price * $user['countt'],
                 'user_id' => $this->session->userdata('u_id'),
+                'transaction_id' => $transaction,
                 'date' => date('Y-m-d H:i:s'),
             );
             $this->Cms_model->booked($add);
@@ -351,6 +362,7 @@ class Index_controller extends CI_Controller {
                 'Price' => $price,
                 'total_price' => $price * $guest['countt'],
                 'user_id' => $this->session->userdata('guest_id'),
+                'transaction_id' => $transaction,
                 'date' => date('Y-m-d H:i:s'),
             );
             //var_dump($this->session->userdata('guest_id'));
@@ -363,27 +375,38 @@ class Index_controller extends CI_Controller {
         }
     }
 
+//    public function pay_u() {
+//        $data['menu'] = $this->Cms_model->get_menu_packages();
+//        $data['discover_data'] = $this->Cms_model->get_Discover();
+//        $data['news_data'] = $this->Cms_model->get_news();
+//        $data['footer_about'] = $this->Cms_model->get_Footer_About();
+//        $data['about'] = $this->Cms_model->get_About();
+//        $l_id = $this->session->userdata('l_id');
+//        $booking = $this->Cms_model->get_booking_packages($l_id);
+//        if ($this->session->userdata('u_id')) {
+//            $user_data = $this->User_model->user_data($this->session->userdata('u_id'));
+//            $user_type = "user";
+//            $user = $this->Cms_model->guest_booking_user_detail($this->session->userdata('u_id'), $user_type);
+//            $price = $booking['Package_Cast'] + $booking['Online_Charge'] + $booking['Other_Charge'];
+//            header("location:http://localhost/payufornoravillas/PayUMoney_form.php");
+//        } else {
+//            $user_type = "guest";
+//            $guest = $this->Cms_model->guest_booking_user_detail($this->session->userdata('guest_id'), $user_type);
+//            $user_data2 = $this->Cms_model->guest_detail($this->session->userdata('guest_id'));
+//            $price = $booking['Package_Cast'] + $booking['Online_Charge'] + $booking['Other_Charge'];
+//            header("location:http://localhost/payufornoravillas/PayUMoney_form.php");
+//        }
+//    }
     public function pay_u() {
-        $data['menu'] = $this->Cms_model->get_menu_packages();
-        $data['discover_data'] = $this->Cms_model->get_Discover();
-        $data['news_data'] = $this->Cms_model->get_news();
-        $data['footer_about'] = $this->Cms_model->get_Footer_About();
-        $data['about'] = $this->Cms_model->get_About();
-        $l_id = $this->session->userdata('l_id');
-        $booking = $this->Cms_model->get_booking_packages($l_id);
-        if ($this->session->userdata('u_id')) {
-            $user_data = $this->User_model->user_data($this->session->userdata('u_id'));
-            $user_type = "user";
-            $user = $this->Cms_model->guest_booking_user_detail($this->session->userdata('u_id'), $user_type);
-            $price = $booking['Package_Cast'] + $booking['Online_Charge'] + $booking['Other_Charge'];
-            header("location:http://localhost/payufornoravillas/PayUMoney_form.php");
-        } else {
-            $user_type = "guest";
-            $guest = $this->Cms_model->guest_booking_user_detail($this->session->userdata('guest_id'), $user_type);
-            $user_data2 = $this->Cms_model->guest_detail($this->session->userdata('guest_id'));
-            $price = $booking['Package_Cast'] + $booking['Online_Charge'] + $booking['Other_Charge'];
-            header("location:http://localhost/payufornoravillas/PayUMoney_form.php");
-        }
+        $this->load->view('payufornoravillas/PayUMoney_form.php');
+    }
+
+    public function pay_u_sucess() {
+        $this->load->view('payufornoravillas/success.php');
+    }
+
+    public function pay_u_failure() {
+        $this->load->view('payufornoravillas/success.php');
     }
 
     public function change_pass() {

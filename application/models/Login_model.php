@@ -183,6 +183,30 @@ class Login_model extends CI_Model {
         $this->db->update('login', $data);
     }
 
+    function guest_check_email($email) {
+        $sql = "select * from guest_login gl
+              where gl.email='$email'   ";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    public function guest_password($random) {
+        $sql = "select * from guest_login gl
+                where gl.ran_pass='$random'";
+        $query = $this->db->query($sql);
+       return $query->row_array();
+    }
+    public function guest_login_insert($data) {
+         $this->db->insert('login',$data);
+         $id=$this->db->insert_id();
+         $this->session->set_userdata('temp',$id);
+         //return $id;
+    }
+    public function login_by_id($id) {
+        $sql="select * from login where u_id=$id";
+        $query=  $this->db->query($sql);
+        return $query->row_array();
+    }
     // echo "<pte>";print_r($data);die;
     //echo $this->db->last_query();    die;
 }

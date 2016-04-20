@@ -1,3 +1,7 @@
+<script data-require="jquery@*" data-semver="2.0.3" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script data-require="bootstrap@*" data-semver="3.1.1" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
 <style>
     .error {color: #FF0000;}
 </style>
@@ -423,39 +427,70 @@
                         <div id="booking" class="tab-pane fade">
                             <h2>Trips You have Booked!</h2>
                           <div class="booking-history">
-                              <div class="booking-info clearfix">
+				
+		<?php 	foreach ($booking as $value) {
+			
+			?>
+			<div class="booking-info clearfix">
                                     <div class="date">
-                                        <label class="month">DEC</label>
-                                        <label class="date">11</label>
-                                        <label class="day">MON</label>
-                                    </div>
-                                    <h4 class="box-title"><i class="icon soap-icon-hotel blue-color circle"></i>Hilton Hotel &amp; Resorts<small>2 adults staying</small></h4>
+                              <a title="" href="#"><img width="70" height="70" alt="" src="<?php echo (empty($value['image'])) ? 'uploads/User_image/1448450106.jpg' : $value['image']; ?>"></a>          
+									   </div>
+                                    <h4 class="box-title"><i class="icon soap-icon-hotel blue-color circle"></i><?php echo (empty($value['Packages'])) ? 'Package Name Not Available' : $value['Packages']; ?><small><?php echo (empty($value['person'])) ? 'No Any Person' : $value['person']; ?> PERSON STAYING</small></h4>
                                     <dl class="info">
-                                        <dt>TRIP ID</dt>
-                                        <dd>5754-8dk8-8ee</dd>
+                                        <dt>Transaction  ID</dt>
+                                        <dd><?php echo (empty($value['Trance_id'])) ? '  Not Available' : $value['Trance_id']; ?></dd>
                                         <dt>booked on</dt>
-                                        <dd>monday, dec 11, 2013</dd>
+                                        <dd><?php echo (empty($value['date'])) ? '  Not Available' : $value['date']; ?></dd>
                                     </dl>
-                                    <button class="btn-mini status">UPCOMMING</button>
-                                </div>
-                              
+                                  
+ <a href="aa.php" data-toggle="modal" data-target="#confirm-delete"><button class="btn btn-default" data-href="delete.php?id=9" data-toggle="modal" data-target="#confirm-delete">
+        Delete </button></a>			
+			</div>
+   
+					<?php  }   ?>
+		
+						<?php 	foreach ($booking as $value) { ?>
+                           
                                 <div class="booking-info clearfix cancelled">
                                     <div class="date">
-                                        <label class="month">DEC</label>
-                                        <label class="date">18</label>
-                                        <label class="day">THU</label>
+                                          <a title="" href="#"><img width="70" height="70" alt="" src="<?php echo (empty($booking['image'])) ? 'uploads/User_image/1448450106.jpg' : $menu['image']; ?>"></a>
                                     </div>
-                                    <h4 class="box-title"><i class="icon soap-icon-car circle"></i>Economy Car<small>you are driving</small></h4>
+                                    <h4 class="box-title"><i class="icon soap-icon-hotel blue-color circle"></i><?php echo (empty($booking['Packages'])) ? 'Package Name Not Available' : $booking['Packages']; ?><small><?php echo (empty($booking['person'])) ? 'No Any Person' : $booking['person']; ?> PERSON STAYING</small></h4>
                                     <dl class="info">
-                                        <dt>TRIP ID</dt>
-                                        <dd>5754-8dk8-8ee</dd>
+                                        <dt>Transaction  ID</dt>
+                                        <dd><?php echo (empty($booking['Trance_id'])) ? '  Not Available' : $booking['Trance_id']; ?></dd>
                                         <dt>booked on</dt>
-                                        <dd>thursday, dec 18, 2013</dd>
+                                        <dd><?php echo (empty($booking['date'])) ? '  Not Available' : $booking['date']; ?></dd>
                                     </dl>
                                     <button class="btn-mini status">CANCELLED</button>
                                 </div>
+						<?php  }   ?>
 							</div>
 						</div>
+						<!--- Pops Div-->
+						 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                </div>
+            
+                <div class="modal-body">
+                    <p>You are about to delete one track, this procedure is irreversible.</p>
+                    <p>Do you want to proceed?</p>
+                    <p class="debug-url"></p>
+                </div>
+                
+                <div class="modal-footer">
+				
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <a  href="aa.php" class="btn-mini status">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
                         <div id="wishlist" class="tab-pane fade">
                             <h2>Your Wish List</h2>
                             <div class="row image-box listing-style2 add-clearfix">
@@ -873,6 +908,13 @@
                 }
             });
 
+        });
+    </script>
+	 <script>
+        $('#confirm-delete').on('show.bs.modal', function(e) {
+            $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+            
+            $('.debug-url').html('Delete URL: <strong>' + $(this).find('.btn-ok').attr('href') + '</strong>');
         });
     </script>
 

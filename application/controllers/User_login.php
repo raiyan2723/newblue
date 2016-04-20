@@ -14,14 +14,15 @@ class User_login extends CI_Controller {
 	public function User_account()
 
 	{
-		//print_r( $this->session->all_userdata());
 		$data['menu'] = $this->User_model->get_ssesion_data($this->session->userdata("u_id"));
-		//echo "<pre>";print_r($data['menu']);die;
-		//$data['username']=$this->session->userdata('fisrt_name');
+		$id=$this->session->userdata("u_id");
+		$data['booking'] = $this->Cms_model->User_booking($id);
+		//echo "<pre>";print_r($data['booking'] );die;
 		$this->load->view('include/head_view',$data);
 		$this->load->view('dashboard/dashboard_view');
 		$this->load->view('dashboard/footer_view');
 		$this->load->view('dashboard/s_dashboard_view');
+		
 	}
 	
 	public function get_sess()

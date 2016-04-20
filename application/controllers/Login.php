@@ -49,8 +49,35 @@ class Login extends CI_Controller {
         //echo "<pre>"; print_r($this->input->post()); die;
         // $data['user_type'] = $this->input->post('user_type');
         $res = $this->Login_model->checklogin($data);
+        $guest = $this->Login_model->guest_check_email($this->input->post('email'));
         if ($res) {
             $this->user_type();
+        } elseif ($guest['email'] == $this->input->post('email')) {
+
+            $guest_pass = $this->Login_model->guest_password($data['password']);
+
+            if ($guest_pass['ran_pass'] == $this->input->post('pass')) {
+                $this->load->model('Cms_model');
+                $detail = $this->Cms_model->guest_detail($guest_pass['id_gstlog']);
+                $insert = array(
+                    'first_name' => $detail['fname'],
+                    'last_name' => $detail['lname'],
+                    'email' => $detail['email'],
+                    'phone' => $detail['phone'],
+                    'street_address' => $detail['address'],
+                    'u_pass' => $this->input->post('pass'),
+                    'user_type' => 'user',
+                );
+                $this->Login_model->guest_login_insert($insert);
+                $id_check = $this->Login_model->login_by_id($this->session->userdata('temp'));
+                $this->session->set_userdata('email', $id_check['email']);
+                $this->session->set_userdata('user_type', $id_check['user_type']);
+                    $this->user_type();
+            } else {
+                //  print_r($count);die;
+                $this->session->set_flashdata('msg2', array('message' => 'Incorrect Email or Password.', 'class' => 'success'));
+                redirect("Index_controller/index", 'refresh');
+            }
         } else {
             //  print_r($count);die;
             $this->session->set_flashdata('msg2', array('message' => 'Incorrect Email or Password.', 'class' => 'success'));

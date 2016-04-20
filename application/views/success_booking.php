@@ -1,9 +1,9 @@
-<?php 
+<?php
 $night = $booking['Total_nights'];
-$Total_cost=$booking['Package_Cast'] + $booking['Other_Charge'] + $booking['Online_Charge'];
+$Total_cost = $booking['Package_Cast'] + $booking['Other_Charge'] + $booking['Online_Charge'];
 $amount = $Total_cost;
-$Total= round($amount / $night);
- ?>
+$Total = round($amount / $night);
+?>
 <div class="page-title-container">
     <div class="container">
         <div class="page-title pull-left">
@@ -30,9 +30,11 @@ $Total= round($amount / $night);
                                 <span><?php
                                     if (isset($user_data)) {
                                         echo $user_data['first_name'];
-                                    } elseif(isset($user_data2)) {
+                                    } elseif (isset($user_data2)) {
                                         echo $user_data2['fname'];
-                                    }else{}
+                                    } else {
+                                        
+                                    }
                                     ?></span>
                             </div>
                             <div class="form-group"> 
@@ -101,18 +103,18 @@ $Total= round($amount / $night);
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><?php echo $amount =  $Total_cost; ?></td>
+                                        <td><?php echo $booking['Packages_Name']; ?></td>
                                         <td><?php
                                             if (isset($user)) {
-                                                $coun1= $user['countt'];
-												echo  $coun1;
+                                                $coun1 = $user['countt'];
+                                                echo $coun1;
                                             } else {
-                                                $coun2= $guest['countt'];
-												echo  $coun2;
+                                                $coun2 = $guest['countt'];
+                                                echo $coun2;
                                             }
                                             ?>
-											</td>
-                                        <td><?php echo $Total;?></td>
+                                        </td>
+                                        <td><?php echo $Total; ?></td>
                                         <td><?php echo $night = $booking['Total_nights']; ?></td>
                                         <td><?php echo $amount = $Total_cost; ?></td>
                                     </tr>
@@ -128,16 +130,18 @@ $Total= round($amount / $night);
 
                 <div class="col-xs-11 col-md-11 form-group text-right wll">
                     <label class=""><strong style="font-size: large;">Grand Total: <i class="fa fa-inr"></i> 
-								<?php if (isset($user)) {
-                                                $count= $user['countt'];
-												echo  $coun1*$amount;
-                                            } else {
-                                                $count= $guest['countt'];
-												echo  $coun2*$amount;
-                                            } ?>
+                            <?php
+                            if (isset($user)) {
+                                $count = $user['countt'];
+                                echo $coun1 * $amount;
+                            } else {
+                                $count = $guest['countt'];
+                                echo $coun2 * $amount;
+                            }
+                            ?>
 
-					
-					</strong></label>
+
+                        </strong></label>
                 </div>
             </div>
 
@@ -150,7 +154,59 @@ $Total= round($amount / $night);
                         </label>
                     </div>
                     <div class="col-xs-6 col-md-6">
-                        <a href="<?php echo site_url('Index_controller/booked');?>"><button class="btn btn-primary pull-right" type="submit">Book</button></a>
+                        <?php echo form_open('Index_controller/pay_u') ?>
+                        <input type="hidden" name="packages" value="<?php echo $booking['l_id']; ?>" />
+                        <input type="hidden" name="email" value="<?php
+                        if (isset($user_data)) {
+                            echo $user_data['email'];
+                        } else {
+                            echo $user_data2['email'];
+                        }
+                        ?>"/>			
+                        <input type="hidden" name="firstname"        value="<?php
+                        if (isset($user_data)) {
+                            echo $user_data['first_name'];
+                        } elseif (isset($user_data2)) {
+                            echo $user_data2['fname'];
+                        } else {
+                            
+                        }
+                        ?>" />			
+                        <input type="hidden" name="productinfo"      value="<?php echo $booking['Packages_Name']; ?>" />
+                        <input type="hidden" name="phone"            value="<?php
+                        if (isset($user_data)) {
+                            echo $user_data['phone'];
+                        } else {
+                            echo $user_data2['phone'];
+                        }
+                        ?>" />
+                        <input type="hidden" name="night"            value="<?php echo $night = $booking['Total_nights']; ?>" />
+                        <input type="hidden" name="amount"           value="<?php
+                        if (isset($user)) {
+                            $count = $user['countt'];
+                            echo $coun1 * $amount;
+                        } else {
+                            $count = $guest['countt'];
+                            echo $coun2 * $amount;
+                        }
+                        ?>" />
+                        <input type="hidden" name="lastname"         value="<?php
+                        if (isset($user_data)) {
+                            echo $user_data['last_name'];
+                        } elseif (isset($user_data2)) {
+                            echo $user_data2['lname'];
+                        } else {
+                            
+                        }
+                        ?>" />
+                        <input type="hidden" name="surl"            value="<?php echo site_url('Index_controller/pay_u_sucess'); ?>" />
+                        <input type="hidden" name="furl"            value="<?php echo site_url('Index_controller/pay_u_failure'); ?>" />
+
+
+
+
+                        <a href="<?php echo site_url('Index_controller/booked'); ?>"><button class="btn btn-primary pull-right" type="submit">Book</button></a>
+                        </form>
                     </div>
                 </div>
             </div>

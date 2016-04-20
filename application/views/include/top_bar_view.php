@@ -56,7 +56,7 @@
                                             <li><a href="index.php/User_login/User_account/#profile" class="location-reload">Profile</a></li>
                                             <li><a href="index.php/User_login/User_account/#booking" class="location-reload">Bookings</a></li>
                                             <li><a href="index.php/User_login/User_account/#settings" class="location-reload">settings</a></li>
-                                            <li><a href="http://localhost/Vandana_work/blueskyexcursion/index.php/Login/logout">signout</a></li>
+                                            <li><a href="<?php echo site_url('Login/logout');?>">signout</a></li>
                                         </ul>
                                     </li> </a></li>
 

@@ -442,7 +442,7 @@ class Cms_model extends CI_Model {
     }
 
     function insert_gst_details() {
-        $random=rand(0000,9999);
+        $random = rand(0000, 9999);
         $data = array(
             'fname' => $this->input->post('firstname'),
             'lname' => $this->input->post('lastname'),
@@ -541,6 +541,18 @@ class Cms_model extends CI_Model {
     function delete_register_data($id) {
         $this->db->where('u_id', $id);
         $this->db->delete('login');
+    }
+
+    function delete_active($id, $user_type) {
+        $this->db->where(array('status' => 'active', 'user_id' => $id, 'user_type' => $user_type));
+        return $this->db->delete('guest');
+    }
+
+    function User_booking($id) {
+        $sql = "select * from booking b
+                where b.user_id='$id'";
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
 
 }
