@@ -6,6 +6,7 @@ class Index_controller extends CI_Controller {
         parent::__Construct();
         $this->load->model('Cms_model');
         $this->load->model('User_model');
+        $this->load->model('Wallet_model');
         $this->load->library('email');
     }
 
@@ -124,9 +125,59 @@ class Index_controller extends CI_Controller {
         if ($this->session->userdata('u_id')) {
             $user_type = "user";
             $this->Cms_model->delete_active($this->session->userdata('u_id'), $user_type);
+            $user_data = $this->User_model->user_data($this->session->userdata('u_id'));
+            if ($user_data['old_wallet'] != 0) {
+                $array1 = array(
+                    'wallet' => $user_data['old_wallet'],
+                    'old_wallet' => 0,
+                );
+                $this->Cms_model->Update_wallet($this->session->userdata('u_id'), $array1);
+            }
+
+
+
+            $array = array(
+                'old_wallet' => 0,
+            );
+            $this->Cms_model->Update_wallet($this->session->userdata('u_id'), $array);
             redirect('Index_controller/booking');
         } else {
             $user_type = "guest";
+            $this->Cms_model->delete_active($this->session->userdata('guest_id'), $user_type);
+            redirect('Index_controller/booking');
+        }
+    }
+
+    public function cancle_booking() {
+        if ($this->session->userdata('u_id')) {
+            $user_type = "user";
+            $l_id = $this->session->userdata('l_id');
+            $booking = $this->Cms_model->get_booking_packages($l_id);
+            $check = $this->Cms_model->guest_table_detail($this->session->userdata('u_id'), $user_type);
+            //var_dump($check);
+            $detail = array(
+                'user_id' => $this->session->userdata('u_id'),
+                'date' => date('Y-m-d H:i:s'),
+                'user_type' => $user_type,
+                'package' => $booking['Packages_Name'],
+                'person' => $check['person2'],
+            );
+            $this->Cms_model->cancle_package($detail);
+            $this->Cms_model->delete_active($this->session->userdata('u_id'), $user_type);
+            redirect('Index_controller/booking', 'refresh');
+        } else {
+            $user_type = "guest";
+            $l_id = $this->session->userdata('l_id');
+            $booking = $this->Cms_model->get_booking_packages($l_id);
+            $check = $this->Cms_model->guest_table_detail($this->session->userdata('guest_id'), $user_type);
+            $detail = array(
+                'user_id' => $this->session->userdata('guest_id'),
+                'date' => date('Y-m-d H:i:s'),
+                'user_type' => $user_type,
+                'package' => $booking['Packages_Name'],
+                'person' => $check['person2'],
+            );
+            $this->Cms_model->cancle_package($detail);
             $this->Cms_model->delete_active($this->session->userdata('guest_id'), $user_type);
             redirect('Index_controller/booking');
         }
@@ -303,7 +354,7 @@ class Index_controller extends CI_Controller {
     }
 
     public function booked() {
-        $transaction=$_REQUEST['transaction'];
+        //$transaction = $_REQUEST['transaction'];
         $data['menu'] = $this->Cms_model->get_menu_packages();
         //echo "<pre>"; print_r($data['menu']);die;
         $data['discover_data'] = $this->Cms_model->get_Discover();
@@ -341,7 +392,13 @@ class Index_controller extends CI_Controller {
                 'status' => 'Inactive',
             );
             $this->Cms_model->status_chnage_guest($this->session->userdata('u_id'), $change);
-
+            $user_data = $this->User_model->user_data($this->session->userdata('u_id'));
+            if ($user_data['old_wallet'] != 0) {
+                $array1 = array(
+                    'old_wallet' => 0,
+                );
+                $this->Cms_model->Update_wallet($this->session->userdata('u_id'), $array1);
+            }
             $this->session->sess_destroy();
         } else {
             $user_type = "guest";
@@ -398,6 +455,26 @@ class Index_controller extends CI_Controller {
 //        }
 //    }
     public function pay_u() {
+        if ($this->session->userdata('u_id')) {
+            $l_id = $this->session->userdata('l_id');
+            $booking = $this->Cms_model->get_booking_packages($l_id);
+            $main = $_REQUEST['amount'];
+            $user_type = "user";
+            $user = $this->Cms_model->guest_booking_user_detail($this->session->userdata('u_id'), $user_type);
+            $Total_cost = $booking['Package_Cast'] + $booking['Other_Charge'] + $booking['Online_Charge'];
+            $amount = $Total_cost;
+            $count = $user['countt'];
+            $check = $count * $amount;
+            // var_dump($check);
+            if ($main != $check) {
+                $a = $check - $main;
+                $array = array(
+                    'wallet' => 0,
+                    'old_wallet' => $a,
+                );
+                $this->Cms_model->Update_wallet($this->session->userdata('u_id'), $array);
+            }
+        }
         $this->load->view('payufornoravillas/PayUMoney_form.php');
     }
 
@@ -442,6 +519,25 @@ class Index_controller extends CI_Controller {
         } else {
             echo 'Your e-mail has been sent!';
         }
+    }
+
+    public function money_added() {
+        $transaction = $_REQUEST['transaction'];
+        $amount = $_REQUEST['amount'];
+        $wallet = $this->Cms_model->user_wallet_detail($this->session->userdata('u_id'));
+        $new_amount = $wallet['wallet'] + $amount;
+        $data1 = array(
+            'amount' => $amount,
+            'transaction_id' => $transaction,
+            'user_id' => $this->session->userdata('u_id'),
+            'created' => date('Y-m-d H:i:s'),
+        );
+        $this->Wallet_model->insert_add_money_detail($data1);
+        $update = array(
+            'wallet' => $new_amount,
+        );
+        $this->Cms_model->Update_wallet($this->session->userdata('u_id'), $update);
+        var_dump($new_amount);
     }
 
 }

@@ -1,32 +1,7 @@
 
-
-
-
-
-
-
-
 <link rel="stylesheet" href="assets/js/vendor/datatables/css/dataTables.bootstrap.css">
 <link rel="stylesheet" href="assets/js/vendor/datatables/css/ColVis.css">
 <link rel="stylesheet" href="assets/js/vendor/datatables/css/TableTools.css">
-<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.2/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="<?php echo asset_url() ?>/DataTables-b69ccaeb6c102b2c55df22b173fab36ce9063299/media/css/dataTables.bootstrap4.css">
-<link rel="stylesheet" type="text/css" href="<?php echo asset_url() ?>/DataTables-b69ccaeb6c102b2c55df22b173fab36ce9063299/examples/resources/syntax/shCore.css">
-<link rel="stylesheet" type="text/css" href="<?php echo asset_url() ?>/DataTables-b69ccaeb6c102b2c55df22b173fab36ce9063299/examples/resources/demo.css">
-<style type="text/css" class="init">
-
-</style>
-<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.0.min.js">
-</script>
-<script type="text/javascript" language="javascript" src="<?php echo asset_url() ?>/DataTables-b69ccaeb6c102b2c55df22b173fab36ce9063299//media/js/jquery.dataTables.js">
-</script>
-<script type="text/javascript" language="javascript" src="<?php echo asset_url() ?>/DataTables-b69ccaeb6c102b2c55df22b173fab36ce9063299/media/js/dataTables.bootstrap4.js">
-</script>
-<script type="text/javascript" language="javascript" src="<?php echo asset_url() ?>/DataTables-b69ccaeb6c102b2c55df22b173fab36ce9063299/examples//resources/syntax/shCore.js">
-</script>
-<script type="text/javascript" language="javascript" src="<?php echo asset_url() ?>/DataTables-b69ccaeb6c102b2c55df22b173fab36ce9063299/examples//resources/demo.js">
-</script>
 <script type="text/javascript" language="javascript" class="init">
 
     $(document).ready(function () {
@@ -37,11 +12,12 @@
 <div id="content" class="col-md-12">
     <!-- page header -->
     <div class="pageheader">
-        <h2><i class="fa fa-lightbulb-o" style="line-height: 48px;padding-left: 0;"></i>View Details <span></span></h2>
+        <h2><i class="fa fa-lightbulb-o" style="line-height: 48px;padding-left: 0;"></i>View Booking Details <span></span></h2>
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li>You are here</li>
                 <li><a href="index.php/Cms/index">cms</a></li>
+				   <li>View All Booking</a></li>
                 <li class="active"></li>
             </ol>
         </div>
@@ -56,7 +32,7 @@
                 <!-- tile -->
                 <section class="tile transparent">
                     <!-- tile header -->
-                    <div> <a href="index.php/Cms/Home_Packages"><button type="button" class="btn btn-primary margin-bottom-20">Add Record</button></a></div>
+                   
                     <div class="tile-header transparent">
 
                         <div class="controls">

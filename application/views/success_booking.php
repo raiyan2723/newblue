@@ -126,21 +126,26 @@ $Total = round($amount / $night);
                 </div>
             </div>
 
-            <div class="row">
 
+            <div class="row" style="    font-size: 17px;">
                 <div class="col-xs-11 col-md-11 form-group text-right wll">
+                    <input type="checkbox" id="wallet" value="<?php echo $user_data['wallet'] ?>" />
+                    <b>Do you want to use your wallet money&nbsp <i class="fa fa-inr"></i><?php echo $user_data['wallet'] ?></b>
+                    <div id="show"></div>
+                </div>
+            </div>
+            <div class="row" style="">
+                <div class="col-xs-11 col-md-11 form-group text-right wll" style="margin: 0px 0px 0px 150px;">
                     <label class=""><strong style="font-size: large;">Grand Total: <i class="fa fa-inr"></i> 
-                            <?php
-                            if (isset($user)) {
-                                $count = $user['countt'];
-                                echo $coun1 * $amount;
-                            } else {
-                                $count = $guest['countt'];
-                                echo $coun2 * $amount;
-                            }
-                            ?>
-
-
+                            <input style="background: none;border: none;" readonly id="grand"value="<?php
+                                   if (isset($user)) {
+                                       $count = $user['countt'];
+                                       echo $coun1 * $amount;
+                                   } else {
+                                       $count = $guest['countt'];
+                                       echo $coun2 * $amount;
+                                   }
+                                   ?>">
                         </strong></label>
                 </div>
             </div>
@@ -148,7 +153,7 @@ $Total = round($amount / $night);
             <div class="col-xs-12 col-md-12 form-group panel panel-default">
                 <div class="panel-body">
                     <div class="col-xs-6 col-md-6">
-                        <input type="checkbox" required="" autofocus="">
+                        <input type="checkbox" required autofocus="">
                         <label class="control-label">
                             <p>I accept <a href="http://noravillas.com/index.php/nora/call_view/terms_view" target="blank">terms And conditions</a></p>
                         </label>
@@ -181,7 +186,7 @@ $Total = round($amount / $night);
                         }
                         ?>" />
                         <input type="hidden" name="night"            value="<?php echo $night = $booking['Total_nights']; ?>" />
-                        <input type="hidden" name="amount"           value="<?php
+                        <input type="hidden" id="grand2" name="amount"           value="<?php
                         if (isset($user)) {
                             $count = $user['countt'];
                             echo $coun1 * $amount;
@@ -190,7 +195,7 @@ $Total = round($amount / $night);
                             echo $coun2 * $amount;
                         }
                         ?>" />
-                        <input type="hidden" name="lastname"         value="<?php
+                        <input type="hidden"  name="lastname"         value="<?php
                         if (isset($user_data)) {
                             echo $user_data['last_name'];
                         } elseif (isset($user_data2)) {
@@ -206,6 +211,7 @@ $Total = round($amount / $night);
 
 
                         <a href="<?php echo site_url('Index_controller/booked'); ?>"><button class="btn btn-primary pull-right" type="submit">Book</button></a>
+                        <a class="btn btn-danger pull-right" style="    margin-right: 9px;" href="<?php echo site_url('Index_controller/cancle_booking'); ?>">cancle</a>
                         </form>
                     </div>
                 </div>
@@ -226,5 +232,26 @@ $Total = round($amount / $night);
 <script type="text/javascript" src="assest/js/waypoints.min.js"></script>
 <!-- load page Javascript -->
 <script type="text/javascript" src="assestjs/theme-scripts.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#wallet').change(function () {
+            if ($(this).prop('checked') === true) {
+                var wallet = $('#wallet').val();
+                var grand = $('#grand').val();
+                var deduct = grand - wallet;
+                $('#grand').val(deduct);
+                $('#grand2').val(deduct);
+                //alert(deduct);
+            } else {
+                var wallet = $('#wallet').val();
+                var grand = $('#grand').val();
+                var deduct = parseInt(grand) + parseInt(wallet);
+                $('#grand').val(deduct);
+                $('#grand2').val(deduct);
+                //alert(deduct);
+            }
+        });
+    });
+</script>
 </body>
 </html>

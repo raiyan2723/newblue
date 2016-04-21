@@ -442,9 +442,7 @@
                                         <dt>booked on</dt>
                                         <dd><?php echo (empty($value['date'])) ? '  Not Available' : $value['date']; ?></dd>
                                     </dl>
-                                  
- <a href="aa.php" data-toggle="modal" data-target="#confirm-delete"><button class="btn btn-default" data-href="delete.php?id=9" data-toggle="modal" data-target="#confirm-delete">
-        Delete </button></a>			
+				<button class="btn-mini status" data-href="delete.php?id=9" data-toggle="modal" data-target="#confirm-delete">CANCEL BOOKING </button>		
 			</div>
    
 					<?php  }   ?>
@@ -474,19 +472,19 @@
             
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                    <h4 class="modal-title" id="myModalLabel">CANCEL BOOKING</h4>
                 </div>
             
                 <div class="modal-body">
-                    <p>You are about to delete one track, this procedure is irreversible.</p>
+                    <p>You are about to Cancel Booking, this procedure is irreversible.</p>
                     <p>Do you want to proceed?</p>
                     <p class="debug-url"></p>
                 </div>
                 
                 <div class="modal-footer">
 				
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                  <a  href="aa.php" class="btn-mini status">Delete</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">NO</button>
+                  <a  href="cancelled.php"><button type="button" class="btn btn-default">YES</button></a>
                 </div>
             </div>
         </div>

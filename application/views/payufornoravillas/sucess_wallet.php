@@ -24,12 +24,12 @@ $hash = hash("sha512", $retHashSeq);
 
 if ($hash != $posted_hash) {
     echo "Invalid Transaction. Please try again";
-    echo "<a class='btn btn-success' href='" . site_url('Index_controller/delete_active') . "'>Next</a>";
+    echo "<a class='btn btn-success' href='" . site_url('Wallet/error_wallet') . "'>Next</a>";
 } else {
 
     echo "<h3>Thank You. Your order status is " . $status . ".</h3>";
     echo "<h4>Your Transaction ID for this transaction is " . $txnid . ".</h4>";
     echo "<h4>We have received a payment of Rs. " . $amount . ". Your order will soon be shipped.</h4>";
-    echo "<a class='btn btn-success' href='" . site_url('Index_controller/booked?transaction=' . $txnid . '') . "'>Next</a>";
+    echo "<a class='btn btn-success' href='" . site_url('Index_controller/money_added?transaction="' . $txnid . '"&amount='.$amount.'') . "'>Next</a>";
 }
 ?>	

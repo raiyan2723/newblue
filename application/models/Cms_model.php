@@ -15,6 +15,7 @@ class Cms_model extends CI_Model {
             'Location_name' => $this->input->post('L_name'),
             'Online_Charge' => $this->input->post('Online_Charge'),
             'Other_Charge' => $this->input->post('Other_Charge'),
+            'discount' => $this->input->post('discount'),
             'Total_nights' => $this->input->post('night'),
             'Packages_image' => $link
         );
@@ -425,10 +426,34 @@ class Cms_model extends CI_Model {
     }
 
     function insert_subscribe() {
-        $data = array(
-            'email' => $this->input->post('email'),
-        );
-        $this->db->insert('subscribe', $data);
+        $data['email'] = $this->input->post('email');
+        $email = strtolower($data['email']);
+        if ($email !== null) {
+            $query = $this->db->get_where('subscribe', array(
+                'email' => $email));
+
+            if ($query->num_rows() > 0) {
+                $message = "This email is already subscribed ";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                redirect("Index_controller/index", 'refresh');
+                die;
+            } else {
+                $data = array(
+                    'email' => $this->input->post('email')
+                );
+                $this->db->insert('subscribe', $data);
+                $message = "You have successfully subscribed to the newsletter";
+                echo "<script type='text/javascript'>alert('$message');</script>";
+                redirect("Index_controller/index", 'refresh');
+            }
+            // $email   = $query->result_array();
+        } else {
+            $message = "Please Enter Your email;";
+            echo "<script type='text/javascript'>alert('$message');</script>";
+            redirect("Index_controller/index", 'refresh');
+        }
+
+        //$this->db->insert('subscribe', $data!='email');
     }
 
     public function user_data($id) {
@@ -553,6 +578,29 @@ class Cms_model extends CI_Model {
                 where b.user_id='$id'";
         $query = $this->db->query($sql);
         return $query->result_array();
+    }
+
+    function guest_table_detail($id, $user_type) {
+        $sql = "select count(g.id)as person2 from guest g
+where g.user_id=$id and g.user_type='$user_type' and g.status='active'";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    public function cancle_package($data) {
+        return $this->db->insert('cancle_booking', $data);
+    }
+
+    public function user_wallet_detail($id) {
+        $sql = "select wallet from login
+                where u_id=$id";
+        $query = $this->db->query($sql);
+        return $query->row_array();
+    }
+
+    public function Update_wallet($id, $upate) {
+        $this->db->where(array('u_id' => $id));
+        return $this->db->update('login', $upate);
     }
 
 }

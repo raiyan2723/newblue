@@ -6,11 +6,12 @@
 <div id="content" class="col-md-12">
     <!-- page header -->
     <div class="pageheader">
-        <h2><i class="fa fa-lightbulb-o" style="line-height: 48px;padding-left: 0;"></i>View Details <span></span></h2>
+        <h2><i class="fa fa-lightbulb-o" style="line-height: 48px;padding-left: 0;"></i>View Guest Details <span></span></h2>
         <div class="breadcrumbs">
             <ol class="breadcrumb">
                 <li>You are here</li>
                 <li><a href="index.php/Cms/index">cms</a></li>
+				   <li>Guest</a></li>
                 <li class="active"></li>
             </ol>
         </div>
@@ -25,7 +26,7 @@
                 <!-- tile -->
                 <section class="tile transparent">
                     <!-- tile header -->
-                    <div> <a href="index.php/Cms/Home_Packages"><button type="button" class="btn btn-primary margin-bottom-20">Add Record</button></a></div>
+                    
                     <div class="tile-header transparent">
 
                         <div class="controls">
